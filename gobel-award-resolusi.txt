@@ -1,0 +1,5 @@
+GOBEL AWARD RESOLUSI
+
+- membuat halaman produk
+- membuat halaman tambah produk
+- membuat halaman pesanan
