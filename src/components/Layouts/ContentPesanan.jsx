@@ -34,6 +34,10 @@ function ContentPesanan() {
             <div className="font-medium text-gray-800">POCONG X3 PRO (6/128) Matot</div> 
             <div className="text-sm text-gray-600">1x Rp 800.000</div> 
           </ProdukContain>
+          <ProdukContain>
+            <div className="font-medium text-gray-800">POCONG X3 PRO (6/128) Matot</div> 
+            <div className="text-sm text-gray-600">1x Rp 800.000</div> 
+          </ProdukContain>
         </div>
 
         {/* Pembayaran */}
