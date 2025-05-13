@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
 import {
   UserIcon,
   HomeIcon,
@@ -7,29 +7,28 @@ import {
   ClipboardDocumentCheckIcon,
   ChatBubbleLeftRightIcon,
   Cog6ToothIcon,
-  ArrowRightOnRectangleIcon
-} from '@heroicons/react/24/outline';
+} from "@heroicons/react/24/outline";
 
 const navItems = [
-  { name: 'User Beranda', icon: UserIcon, path: '/UserBeranda' },
-  { name: 'Admin Beranda', icon: HomeIcon, path: '/' },
-  { name: 'Kasir', icon: CreditCardIcon, path: '/Kasir' },
-  { name: 'Produk', icon: CubeIcon, path: '/Produk' },
-  { name: 'Transaksi', icon: ClipboardDocumentCheckIcon, path: '/Transaksi' },
-  { name: 'Saran', icon: ChatBubbleLeftRightIcon, path: '/Saran' },
+  { name: "Beranda", icon: HomeIcon, path: "/" },
+  { name: "Kasir", icon: CreditCardIcon, path: "/Kasir" },
+  { name: "Produk", icon: CubeIcon, path: "/Produk" },
+  { name: "Transaksi", icon: ClipboardDocumentCheckIcon, path: "/Transaksi" },
+  { name: "Saran", icon: ChatBubbleLeftRightIcon, path: "/Saran" },
 ];
 
-const pengaturanItem = [
-  { nameBott: 'Pengaturan', icon: Cog6ToothIcon, path: '/Pengaturan' },
-  { nameBott: 'Keluar', icon: ArrowRightOnRectangleIcon, path: '/Keluar' },
-];
+const pengaturanItem = {
+  name: "Pengaturan",
+  icon: Cog6ToothIcon,
+  path: "/pengaturan",
+};
 
 const SideBar = () => {
   const location = useLocation();
 
   return (
-    <aside className="w-55 min-h-screen bg-gray-100 border border-gray-300 rounded-2xl font-semibold shadow-sm p-2 flex flex-col justify-between">
-      { /* Logo */}
+    <aside className="w-55 min-h-screen bg-primary border border-gray-300 rounded-2xl font-semibold shadow-sm p-2 flex flex-col justify-between">
+      {/* Logo */}
       <div className="flex items-center justify-center mt-6">
         <img
           src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
@@ -37,8 +36,8 @@ const SideBar = () => {
           className="h-10 w-10"
         />
       </div>
-      
-       {/* Informasi Saldo dan Total Transaksi */}
+
+      {/* Informasi Saldo dan Total Transaksi */}
       <div className="mt-6 bg-gray-100 border-b-1 border-t-1 border-gray-300 p-3 text-xs space-y-2 overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div className="flex items-start justify-center">Saldo</div>
@@ -59,8 +58,8 @@ const SideBar = () => {
             className={`w-full flex items-center px-3 py-2 rounded-md text-gray-800 hover:bg-green-200
               ${
                 location.pathname === item.path
-                    ? 'text-green-600 border-l-5 border-green-600 hover:text-gray-800'
-                    : 'text-gray-800 hover:text-gray-800'
+                  ? "text-green-600 border-l-5 border-green-600 hover:text-gray-800"
+                  : "text-gray-800 hover:text-gray-800"
               }`}
           >
             <item.icon className="h-5 w-5 mr-3" />
