@@ -9,7 +9,12 @@ import Kasir from './Pages/Kasir.jsx';
 import UserBeranda from './Pages/UserBeranda.jsx';
 import TambahProduk from './Pages/Tambahproduk.jsx';
 
+
 const router = createBrowserRouter([
+    {
+    path: "/UserBeranda",
+    element: <UserBeranda />,
+  },
   {
     path: "/",
     element: <Beranda />,

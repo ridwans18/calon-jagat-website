@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
 body {
-    background-color: darkslateblue;
+  background-color: darkslateblue;
+}
+
+@theme {
+  --color-primary: #f3f4f6;
+  --color-secondary: #e5e7eb;
+  --spacing-left: 12px;
 }

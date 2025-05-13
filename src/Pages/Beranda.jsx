@@ -1,4 +1,4 @@
-import SideBar from '../components/Layouts/SideBar';
+import SideBar from "../components/Layouts/SideBar";
 
 function Beranda() {
   return (
