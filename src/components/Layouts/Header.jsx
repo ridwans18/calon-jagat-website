@@ -19,7 +19,7 @@ const Header = () => {
             className={`text-sm font-medium px-3 py-1 rounded-md transition-all duration-200
               ${
                 activeTab === tab
-                  ? 'text-green-600 border-b-2 border-green-600'
+                  ? 'text-green-600 border-b-3 border-green-600'
                   : 'text-gray-800 hover:text-green-600'
               } bg-transparent`}
           >

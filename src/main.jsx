@@ -7,6 +7,7 @@ import Produk from './Pages/Produk.jsx';
 import Beranda from './Pages/Beranda.jsx';
 import Kasir from './Pages/Kasir.jsx';
 import UserBeranda from './Pages/UserBeranda.jsx';
+import ViewPesanan from './components/Layouts/ViewPesanan.jsx';
 
 const router = createBrowserRouter([
     {
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
     path: "/Transaksi",
     element: <Transaksi />,
   },
+  {
+    path: "/ViewPesanan",
+    element: <ViewPesanan />,
+  }
 ]);
 
 createRoot(document.getElementById("root")).render(
