@@ -7,8 +7,8 @@ import Produk from './Pages/Produk.jsx';
 import Beranda from './Pages/Beranda.jsx';
 import Kasir from './Pages/Kasir.jsx';
 import UserBeranda from './Pages/UserBeranda.jsx';
+import ViewPesanan from './components/Layouts/ViewPesanan.jsx';
 import TambahProduk from './Pages/Tambahproduk.jsx';
-
 
 const router = createBrowserRouter([
     {
@@ -32,9 +32,13 @@ const router = createBrowserRouter([
     element: <Transaksi />,
   },
   {
+    path: "/ViewPesanan",
+    element: <ViewPesanan />,
+  }
     path: "/TambahProduk",
     element: <TambahProduk />,
   },
+
 ]);
 
 createRoot(document.getElementById("root")).render(

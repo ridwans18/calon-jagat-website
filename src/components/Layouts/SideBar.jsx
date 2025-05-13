@@ -29,8 +29,8 @@ const SideBar = () => {
   const location = useLocation();
 
   return (
-    <aside className="w-55 min-h-screen bg-primary border border-gray-300 rounded-2xl font-semibold shadow-sm p-2 flex flex-col justify-between">
-      {/* Logo */}
+    <aside className="w-55 min-h-screen bg-gray-100 border-r border-gray-300 rounded-2xl font-semibold shadow-sm p-2 flex flex-col justify-between">
+      { /* Logo */}
       <div className="flex items-center justify-center mt-6">
         <img
           src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
