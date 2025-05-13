@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation } from 'react-router-dom';
 import {
   UserIcon,
   HomeIcon,
@@ -7,21 +7,23 @@ import {
   ClipboardDocumentCheckIcon,
   ChatBubbleLeftRightIcon,
   Cog6ToothIcon,
-} from "@heroicons/react/24/outline";
+  ArrowRightOnRectangleIcon
+} from '@heroicons/react/24/outline';
 
 const navItems = [
-  { name: "Beranda", icon: HomeIcon, path: "/" },
-  { name: "Kasir", icon: CreditCardIcon, path: "/Kasir" },
-  { name: "Produk", icon: CubeIcon, path: "/Produk" },
-  { name: "Transaksi", icon: ClipboardDocumentCheckIcon, path: "/Transaksi" },
-  { name: "Saran", icon: ChatBubbleLeftRightIcon, path: "/Saran" },
+  { name: 'User Beranda', icon: UserIcon, path: '/UserBeranda' },
+  { name: 'Admin Beranda', icon: HomeIcon, path: '/' },
+  { name: 'Kasir', icon: CreditCardIcon, path: '/Kasir' },
+  { name: 'Produk', icon: CubeIcon, path: '/Produk' },
+  { name: 'Transaksi', icon: ClipboardDocumentCheckIcon, path: '/Transaksi' },
+  { name: 'Saran', icon: ChatBubbleLeftRightIcon, path: '/Saran' },
+  { name: 'View Pesanan', icon: ChatBubbleLeftRightIcon, path: '/ViewPesanan' },
 ];
 
-const pengaturanItem = {
-  name: "Pengaturan",
-  icon: Cog6ToothIcon,
-  path: "/pengaturan",
-};
+const pengaturanItem = [
+  { nameBott: 'Pengaturan', icon: Cog6ToothIcon, path: '/Pengaturan' },
+  { nameBott: 'Keluar', icon: ArrowRightOnRectangleIcon, path: '/Keluar' },
+];
 
 const SideBar = () => {
   const location = useLocation();
