@@ -17,12 +17,12 @@ const navItems = [
   { name: 'Produk', icon: CubeIcon, path: '/Produk' },
   { name: 'Transaksi', icon: ClipboardDocumentCheckIcon, path: '/Transaksi' },
   { name: 'Saran', icon: ChatBubbleLeftRightIcon, path: '/Saran' },
-  { name: 'View Pesanan', icon: ChatBubbleLeftRightIcon, path: '/ViewPesanan' },
+  { name: 'View Pesanan', icon: ChatBubbleLeftRightIcon, path: '/ViewPesanan' },
 ];
 
 const pengaturanItem = [
   { nameBott: 'Pengaturan', icon: Cog6ToothIcon, path: '/Pengaturan' },
-  { nameBott: 'Keluar', icon: ArrowRightOnRectangleIcon, path: '/Keluar' },
+  { nameBott: 'Keluar', icon: ArrowRightOnRectangleIcon, path: '/Keluar' },
 ];
 
 const SideBar = () => {
@@ -38,8 +38,8 @@ const SideBar = () => {
           className="h-10 w-10"
         />
       </div>
-      
-       {/* Informasi Saldo dan Total Transaksi */}
+
+      {/* Informasi Saldo dan Total Transaksi */}
       <div className="mt-6 bg-gray-100 border-b-1 border-t-1 border-gray-300 p-3 text-xs space-y-2 overflow-hidden">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between">
           <div className="flex items-start justify-center">Saldo</div>
@@ -60,8 +60,8 @@ const SideBar = () => {
             className={`w-full flex items-center px-3 py-2 rounded-md text-gray-800 hover:bg-green-200
               ${
                 location.pathname === item.path
-                    ? 'text-green-600 border-l-5 border-green-600 hover:text-gray-800'
-                    : 'text-gray-800 hover:text-gray-800'
+                  ? "text-green-600 border-l-5 border-green-600 hover:text-gray-800"
+                  : "text-gray-800 hover:text-gray-800"
               }`}
           >
             <item.icon className="h-5 w-5 mr-3" />
