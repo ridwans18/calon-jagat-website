@@ -7,6 +7,8 @@ import Produk from './Pages/Produk.jsx';
 import Beranda from './Pages/Beranda.jsx';
 import Kasir from './Pages/Kasir.jsx';
 import UserBeranda from './Pages/UserBeranda.jsx';
+import TambahProduk from './Pages/Tambahproduk.jsx';
+
 
 const router = createBrowserRouter([
     {
@@ -28,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/Transaksi",
     element: <Transaksi />,
+  },
+  {
+    path: "/TambahProduk",
+    element: <TambahProduk />,
   },
 ]);
 
