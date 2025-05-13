@@ -6,11 +6,8 @@ import Transaksi from './Pages/Transaksi.jsx';
 import Produk from './Pages/Produk.jsx';
 import Beranda from './Pages/Beranda.jsx';
 import Kasir from './Pages/Kasir.jsx';
-<<<<<<< Updated upstream
-=======
 import UserBeranda from './Pages/UserBeranda.jsx';
 import TambahProduk from './Pages/Tambahproduk.jsx';
->>>>>>> Stashed changes
 
 const router = createBrowserRouter([
   {
