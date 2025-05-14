@@ -7,7 +7,7 @@ import Produk from './Pages/Produk.jsx';
 import Beranda from './Pages/Beranda.jsx';
 import Kasir from './Pages/Kasir.jsx';
 import UserBeranda from './Pages/UserBeranda.jsx';
-import ViewPesanan from './components/Layouts/ViewPesanan.jsx';
+import ViewPesanan from './Pages/ViewPesanan.jsx';
 import TambahProduk from './Pages/Tambahproduk.jsx';
 
 const router = createBrowserRouter([

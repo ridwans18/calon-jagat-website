@@ -7,7 +7,7 @@ function Card_Produk() {
       </div>
       <div className="min-w-[350px] flex gap-2">
         <img src="" alt="" className="w-20 h-20" />
-        <p>1 set knalpot</p>
+        <p>Ayam</p>
       </div>
       <div className="min-w-[150px] w-full">
         <div className="flex h-[40px] w-[150px] items-center gap-2  rounded-md overflow-hidden border-secondary border">

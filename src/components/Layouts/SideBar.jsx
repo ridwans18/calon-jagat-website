@@ -17,7 +17,6 @@ const navItems = [
   { name: 'Produk', icon: CubeIcon, path: '/Produk' },
   { name: 'Transaksi', icon: ClipboardDocumentCheckIcon, path: '/Transaksi' },
   { name: 'Saran', icon: ChatBubbleLeftRightIcon, path: '/Saran' },
-  { name: 'View Pesanan', icon: ChatBubbleLeftRightIcon, path: '/ViewPesanan' },
 ];
 
 const pengaturanItem = [
@@ -29,7 +28,7 @@ const SideBar = () => {
   const location = useLocation();
 
   return (
-    <aside className="w-55 min-h-screen bg-gray-100 border-r border-gray-300 rounded-2xl font-semibold shadow-sm p-2 flex flex-col justify-between">
+    <aside className="w-55 min-h-screen bg-gray-100 border-r border-gray-300 rounded-r-4xl font-semibold shadow-sm p-2 flex flex-col justify-between">
       { /* Logo */}
       <div className="flex items-center justify-center mt-6">
         <img

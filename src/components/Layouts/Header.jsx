@@ -10,7 +10,7 @@ const Header = () => {
   const [activeTab, setActiveTab] = useState('Semua');
 
   return (
-    <div className="bg-gray-100 rounded-md p-2 shadow-sm">
+    <div className="bg-gray-100 border border-gray-200 rounded-md p-2 shadow-sm">
       <div className="flex flex-wrap gap-2 md:gap-4">
         {header.map((tab) => (
           <button
