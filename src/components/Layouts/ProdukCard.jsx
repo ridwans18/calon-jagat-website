@@ -1,4 +1,4 @@
-import PlusMinProdukCard from "../Fragments/PlusMin-ProdukCard";
+import BtnPlusMin from "../Fragments/BtnPlusMin";
 import useFetch from "../../hooks/useFetch";
 import fetchProducts from "../../hooks/produkFetch";
 
@@ -67,7 +67,7 @@ const ProdukCard = () => {
 
               {/* Button Plus Minus */}
               <div className="flex justify-center">
-                <PlusMinProdukCard />
+                <BtnPlusMin />
               </div>
             </div>
           </div>

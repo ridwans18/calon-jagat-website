@@ -1,4 +1,5 @@
 import SideBar from '../components/Layouts/SideBar';
+import ContentKasir from '../components/Layouts/ContentKasir';
 
 function Kasir() {
   return (
@@ -6,7 +7,7 @@ function Kasir() {
       <SideBar />
       <main className="flex-1 p-6">
         <h2 className="text-xl font-semibold mb-4">Kasir</h2>
-        {/* Add your content here */}
+        <ContentKasir />
       </main>
     </div>
   );

@@ -19,7 +19,7 @@ function Produk_Layout() {
           onClick={handleClick}
           className="bg-green-600 text-white font-semibold px-4 py-2 rounded-md shadow-md 
                      hover:bg-green-500 focus:ring-2 focus:ring-green-400 
-                     active:bg-green-700 transition duration-200"
+                     active:bg-green-700 transition duration-200 cursor-pointer"
         >
           + Tambah Produk
         </button>
@@ -59,14 +59,13 @@ function Produk_Layout() {
           <p className="min-w-[350px]">INFO PRODUK</p>
           <p className="min-w-[150px] w-full">HARGA</p>
           <p className="min-w-[150px] w-full">STOK</p>
-          <p className="min-w-[150px] w-full">AKTIF</p>
+          <p className="min-w-[150px] w-full">DESKRIPSI</p>
+          <p className="min-w-[150px] w-full">STATUS</p>
           <p className="min-w-[150px] w-full"></p>
         </div>
 
         {/* List Produk */}
         <div className="px-left space-y-4">
-          <Card_Produk />
-          <Card_Produk />
           <Card_Produk />
         </div>
       </div>

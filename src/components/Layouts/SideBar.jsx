@@ -21,7 +21,7 @@ const navItems = [
 
 const pengaturanItem = [
   { nameBott: 'Pengaturan', icon: Cog6ToothIcon, path: '/Pengaturan' },
-  { nameBott: 'Keluar', icon: ArrowRightOnRectangleIcon, path: '/Keluar' },
+  { nameBott: 'Keluar', icon: ArrowRightOnRectangleIcon, path: '/Login' },
 ];
 
 const SideBar = () => {

@@ -9,6 +9,8 @@ import Kasir from './Pages/Kasir.jsx';
 import UserBeranda from './Pages/UserBeranda.jsx';
 import ViewPesanan from './Pages/ViewPesanan.jsx';
 import TambahProduk from './Pages/Tambahproduk.jsx';
+import EditProduk from "./Pages/EditProduk";
+import Login from './Pages/Login.jsx';
 
 const router = createBrowserRouter([
     {
@@ -39,9 +41,15 @@ const router = createBrowserRouter([
     path: "/TambahProduk",
     element: <TambahProduk />,
   },
-
+  {
+    path: "/EditProduk",
+    element: <EditProduk />,
+  },
+  {
+    path: "/Login",
+    element: <Login />,
+  },
 ]);
-
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <RouterProvider router={router} />

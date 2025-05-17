@@ -23,7 +23,7 @@ function TambahProduklay() {
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
     if (images.length + files.length <= 6) {
-      setImages(prev => [...prev, ...files]);
+      setImages((prev) => [...prev, ...files.map(file => URL.createObjectURL(file))]);
     } else {
       alert('Maksimal upload 6 gambar');
     }
@@ -56,8 +56,14 @@ function TambahProduklay() {
     e.preventDefault();
     if (!validateForm()) return;
 
-    console.log('Data produk:', formData);
-    console.log('Gambar produk:', images);
+    const existingData = JSON.parse(localStorage.getItem("produk")) || [];
+    const newData = {
+      ...formData,
+      images,
+      id: Date.now(), // Tambahkan ID unik
+    };
+
+    localStorage.setItem("produk", JSON.stringify([...existingData, newData]));
 
     setFormData({
       nama: '',
@@ -119,7 +125,7 @@ function TambahProduklay() {
         <div className="mt-3 grid grid-cols-3 gap-3">
           {images.map((img, index) => (
             <div key={index} className="relative w-full h-24 border rounded overflow-hidden">
-              <img src={URL.createObjectURL(img)} alt={`preview-${index}`} className="w-full h-full object-cover" />
+              <img src={img} alt={`preview-${index}`} className="w-full h-full object-cover" />
               <button
                 type="button"
                 onClick={() => handleRemoveImage(index)}
