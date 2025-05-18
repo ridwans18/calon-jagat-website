@@ -1,5 +1,6 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { postdata } from "../../services/api";
 
 function TambahProduklay() {
   const [images, setImages] = useState([]);
@@ -7,25 +8,28 @@ function TambahProduklay() {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    nama: '',
-    deskripsi: '',
-    harga: '',
-    stok: '',
+    nama: "",
+    deskripsi: "",
+    harga: "",
+    stok: "",
   });
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
     if (images.length + files.length <= 6) {
-      setImages((prev) => [...prev, ...files.map(file => URL.createObjectURL(file))]);
+      setImages((prev) => [
+        ...prev,
+        ...files.map((file) => URL.createObjectURL(file)),
+      ]);
     } else {
-      alert('Maksimal upload 6 gambar');
+      alert("Maksimal upload 6 gambar");
     }
   };
 
@@ -35,7 +39,7 @@ function TambahProduklay() {
   };
 
   const validateForm = () => {
-    const fields = ['nama', 'deskripsi', 'harga', 'stok'];
+    const fields = ["nama", "deskripsi", "harga", "stok"];
 
     for (let field of fields) {
       if (!formData[field]) {
@@ -45,31 +49,29 @@ function TambahProduklay() {
     }
 
     if (images.length === 0) {
-      alert('Minimal upload 1 gambar');
+      alert("Minimal upload 1 gambar");
       return false;
     }
 
     return true;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validateForm()) return;
 
-    const existingData = JSON.parse(localStorage.getItem("produk")) || [];
     const newData = {
       ...formData,
       images,
       id: Date.now(), // Tambahkan ID unik
     };
-
-    localStorage.setItem("produk", JSON.stringify([...existingData, newData]));
+    await postdata("ayam", newData);
 
     setFormData({
-      nama: '',
-      deskripsi: '',
-      harga: '',
-      stok: '',
+      nama: "",
+      deskripsi: "",
+      harga: "",
+      stok: "",
     });
     setImages([]);
     setNotif("✅ Produk berhasil ditambahkan!");
@@ -77,8 +79,10 @@ function TambahProduklay() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="relative p-6 bg-white rounded shadow-md max-w-3xl mx-auto mt-6">
-      
+    <form
+      onSubmit={handleSubmit}
+      className="relative p-6 bg-white rounded shadow-md max-w-3xl mx-auto mt-6"
+    >
       {/* Tombol X di pojok kanan atas */}
       <button
         type="button"
@@ -94,38 +98,80 @@ function TambahProduklay() {
       {/* Nama Produk */}
       <div className="mb-4">
         <label className="block mb-1 font-medium">Nama Produk</label>
-        <input type="text" name="nama" value={formData.nama} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
+        <input
+          type="text"
+          name="nama"
+          value={formData.nama}
+          onChange={handleChange}
+          className="w-full border px-3 py-2 rounded"
+        />
       </div>
 
       {/* Deskripsi */}
       <div className="mb-4">
         <label className="block mb-1 font-medium">Deskripsi</label>
-        <textarea name="deskripsi" value={formData.deskripsi} onChange={handleChange} className="w-full border px-3 py-2 rounded"></textarea>
+        <textarea
+          name="deskripsi"
+          value={formData.deskripsi}
+          onChange={handleChange}
+          className="w-full border px-3 py-2 rounded"
+        ></textarea>
       </div>
 
       {/* Harga dan Stok */}
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
           <label className="block mb-1 font-medium">Harga (Rp)</label>
-          <input type="number" name="harga" value={formData.harga} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
+          <input
+            type="number"
+            name="harga"
+            value={formData.harga}
+            onChange={handleChange}
+            className="w-full border px-3 py-2 rounded"
+          />
         </div>
         <div>
           <label className="block mb-1 font-medium">Stok</label>
-          <input type="number" name="stok" value={formData.stok} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
+          <input
+            type="number"
+            name="stok"
+            value={formData.stok}
+            onChange={handleChange}
+            className="w-full border px-3 py-2 rounded"
+          />
         </div>
       </div>
 
       {/* Upload Gambar */}
       <div className="mb-4">
-        <label className="block mb-1 font-medium">Upload Gambar (maks. 6)</label>
-        <input type="file" accept="image/*" multiple onChange={handleImageUpload} className="hidden" id="uploadGambar" />
-        <label htmlFor="uploadGambar" className="inline-block px-4 py-2 bg-blue-600 text-white rounded cursor-pointer hover:bg-blue-700">
+        <label className="block mb-1 font-medium">
+          Upload Gambar (maks. 6)
+        </label>
+        <input
+          type="file"
+          accept="image/*"
+          multiple
+          onChange={handleImageUpload}
+          className="hidden"
+          id="uploadGambar"
+        />
+        <label
+          htmlFor="uploadGambar"
+          className="inline-block px-4 py-2 bg-blue-600 text-white rounded cursor-pointer hover:bg-blue-700"
+        >
           Pilih Gambar
         </label>
         <div className="mt-3 grid grid-cols-3 gap-3">
           {images.map((img, index) => (
-            <div key={index} className="relative w-full h-24 border rounded overflow-hidden">
-              <img src={img} alt={`preview-${index}`} className="w-full h-full object-cover" />
+            <div
+              key={index}
+              className="relative w-full h-24 border rounded overflow-hidden"
+            >
+              <img
+                src={img}
+                alt={`preview-${index}`}
+                className="w-full h-full object-cover"
+              />
               <button
                 type="button"
                 onClick={() => handleRemoveImage(index)}
@@ -139,7 +185,10 @@ function TambahProduklay() {
       </div>
 
       {/* Tombol Submit */}
-      <button type="submit" className="mt-4 px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700">
+      <button
+        type="submit"
+        className="mt-4 px-6 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+      >
         Simpan Produk
       </button>
 
