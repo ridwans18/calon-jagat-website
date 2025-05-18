@@ -48,7 +48,7 @@ const Login_Layout = () => {
                 type="password"
                 name="password"
                 id="password"
-                placeholder="Password"
+                placeholder="password"
                 value={formData.password}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"

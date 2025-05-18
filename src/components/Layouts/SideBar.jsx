@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   UserIcon,
@@ -7,7 +8,9 @@ import {
   ClipboardDocumentCheckIcon,
   ChatBubbleLeftRightIcon,
   Cog6ToothIcon,
-  ArrowRightOnRectangleIcon
+  ArrowRightOnRectangleIcon,
+  Bars3Icon,
+  XMarkIcon,
 } from '@heroicons/react/24/outline';
 
 const navItems = [
@@ -21,16 +24,44 @@ const navItems = [
 
 const pengaturanItem = [
   { nameBott: 'Pengaturan', icon: Cog6ToothIcon, path: '/Pengaturan' },
-  { nameBott: 'Keluar', icon: ArrowRightOnRectangleIcon, path: '/Login' },
+  { nameBott: 'Keluar', icon: ArrowRightOnRectangleIcon, path: '/Login' },
 ];
 
 const SideBar = () => {
   const location = useLocation();
 
+  // Ambil nilai awal dari localStorage (true/false)
+  const [isOpen, setIsOpen] = useState(() => {
+    const saved = localStorage.getItem('sidebarOpen');
+    return saved === null ? true : JSON.parse(saved);
+  });
+
+  // Simpan setiap perubahan ke localStorage
+  useEffect(() => {
+    localStorage.setItem('sidebarOpen', JSON.stringify(isOpen));
+  }, [isOpen]);
+
   return (
-    <aside className="w-55 min-h-screen bg-gray-100 border-r border-gray-300 rounded-r-4xl font-semibold shadow-sm p-2 flex flex-col justify-between">
-      { /* Logo */}
-      <div className="flex items-center justify-center mt-6">
+    <aside
+      className={`${
+        isOpen ? 'w-56' : 'w-20'
+      } min-h-screen bg-gray-100 border-r border-gray-300 rounded-r-4xl font-semibold shadow-sm p-2 
+        flex flex-col justify-between transition-all duration-300 overflow-hidden`}
+    >
+      {/* Toggle button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="flex items-center justify-center p-2 mb-4 rounded-tr-3xl hover:bg-green-200 transition"
+      >
+        {isOpen ? (
+          <XMarkIcon className="w-6 h-6 text-gray-800" />
+        ) : (
+          <Bars3Icon className="w-6 h-6 text-gray-800" />
+        )}
+      </button>
+
+      {/* Logo */}
+      <div className="flex items-center justify-center mt-2">
         <img
           src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
           alt="Logo"
@@ -38,52 +69,58 @@ const SideBar = () => {
         />
       </div>
 
-      {/* Informasi Saldo dan Total Transaksi */}
-      <div className="mt-6 bg-gray-100 border-b-1 border-t-1 border-gray-300 p-3 text-xs space-y-2 overflow-hidden">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-          <div className="flex items-start justify-center">Saldo</div>
-          <div className="flex items-end justify-center">Rp100.000</div>
+      {/* Informasi */}
+      {isOpen && (
+        <div className="mt-6 border-t border-b border-gray-300 p-3 text-xs space-y-2">
+          <div className="flex justify-between">
+            <span>Saldo</span>
+            <span>Rp100.000</span>
+          </div>
+          <div className="flex justify-between">
+            <span>Total Transaksi</span>
+            <span>34</span>
+          </div>
         </div>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-          <div className="flex items-start justify-center">Total Transaksi</div>
-          <div className="flex items-end justify-center">34</div>
-        </div>
-      </div>
+      )}
 
-      {/* Navigasi SideBar */}
-      <nav className="space-y-2">
+      {/* Navigasi */}
+      <nav className="space-y-2 mt-4">
         {navItems.map((item) => (
           <Link
             to={item.path}
             key={item.name}
-            className={`w-full flex items-center px-3 py-2 rounded-md text-gray-800 hover:bg-green-200
-              ${
-                location.pathname === item.path
-                  ? "text-green-600 border-l-5 border-green-600 hover:text-gray-800"
-                  : "text-gray-800 hover:text-gray-800"
-              }`}
+            className={`flex items-center px-3 py-2 rounded-md hover:bg-green-200 ${
+              location.pathname === item.path
+                ? 'text-green-600 border-l-4 border-green-600'
+                : 'text-gray-800'
+            }`}
           >
-            <item.icon className="h-5 w-5 mr-3" />
-            {item.name}
+            <item.icon className={`${ 
+              isOpen ? 'mr-3' : 'ml-2'
+              } h-5 w-5`} 
+            />
+            {isOpen && <span>{item.name}</span>}
           </Link>
         ))}
       </nav>
 
-      {/* Footer SideBar */}
-      <div className="items-center ">
-      {pengaturanItem.map((itemBott) => (
+      {/* Footer */}
+      <div className="mt-4">
+        {pengaturanItem.map((itemBott) => (
           <Link
             to={itemBott.path}
             key={itemBott.nameBott}
-            className={`w-full flex items-center px-3 py-2 p-2 rounded-md text-gray-800 hover:bg-green-200
-              ${
-                location.pathname === itemBott.path
-                  ? 'text-green-600 border-l-5 border-green-600 hover:text-gray-800'
-                  : 'text-gray-800 hover:text-gray-800'
-              }`}
+            className={`flex items-center px-3 py-2 rounded-md hover:bg-green-200 ${
+              location.pathname === itemBott.path
+                ? 'text-green-600 border-l-4 border-green-600'
+                : 'text-gray-800'
+            }`}
           >
-            <itemBott.icon className="h-5 w-5 mr-3" />
-            {itemBott.nameBott}
+            <itemBott.icon className={`${ 
+              isOpen ? 'mr-3' : 'ml-2'
+              } h-5 w-5`} 
+            />
+            {isOpen && <span>{itemBott.nameBott}</span>}
           </Link>
         ))}
       </div>

@@ -48,12 +48,12 @@ function ContentKasir() {
   return (
     <div className="flex h-155 bg-white">
       {/* Main Products */}
-      <div className="w-2/5 grid grid-cols-3 gap-4 overflow-y-auto h-160">
+      <div className="w-2/5 grid grid-cols-3 overflow-y-auto h-160">
         {productsKasir.map((product) => (
           <button
             key={product.id}
             onClick={() => addToCart(product)}
-            className="border rounded-lg p-4 text-center hover:bg-gray-100 cursor-pointer"
+            className="border rounded-lg p-4 text-center hover:bg-gray-100 cursor-pointer mr-4 mb-4"
           >
             <div className="text-4xl">{product.image}</div>
             <div className="font-medium mt-2 text-sm">{product.name}</div>
@@ -111,8 +111,8 @@ function ContentKasir() {
                                  active:bg-pink-700 transition duration-200 cursor-pointer">
                     Ditinggal
                 </button>
-                <button className="w-1/2 bg-cyan-500 hover:bg-cyan-600 text-white py-2 rounded-md font-bold
-                                 active:bg-cyan-700 transition duration-200 cursor-pointer">
+                <button className="w-1/2 bg-purple-500 hover:bg-purple-600 text-white py-2 rounded-md font-bold
+                                 active:bg-purple-700 transition duration-200 cursor-pointer">
                     Bayar
                 </button>
             </div>
@@ -121,7 +121,7 @@ function ContentKasir() {
         
         <div className="flex flex-col h-160">
         {/* Pesan Melalui Aplikasi */}
-        <div className="w-full px-4 py-0 overflow-y-auto mb-5">
+        <div className="w-full px-4 overflow-y-auto mb-5">
             <h2 className="sticky top-0 text-xl font-semibold bg-white w-full h-9 z-10 text-green-600">Pesan Melalui Website</h2>
             <div className="grid grid-cols-2 gap-4 mt-2">
                 {productOnline.map((product, index) => (
@@ -175,7 +175,7 @@ function ContentKasir() {
         </div>
         
         {/* Pesanan Diambil Nanti */}
-        <div className="w-full px-4 py-0 overflow-y-auto">
+        <div className="w-full px-4 overflow-y-auto">
             <h2 className="sticky top-0 text-xl font-semibold bg-white w-full h-9 z-10 text-pink-600">Diambil Nanti</h2>
             <div className="grid grid-cols-2 gap-4 mt-2">
                 {productDitinggal.map((product, index) => (
