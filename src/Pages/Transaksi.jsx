@@ -1,7 +1,7 @@
-import SideBar from '../components/Layouts/SideBar';
-import Header from '../components/Layouts/Header';
-import FilterSearchReset from '../components/Layouts/Filter-Search-Reset';
-import ContentPesanan from '../components/Layouts/ContentPesanan';
+import SideBar from "../components/Layouts/SideBar";
+import Header from "../components/Layouts/Header";
+import FilterSearchReset from "../components/Layouts/Filter-Search-Reset";
+import ContentPesanan from "../components/Layouts/ContentPesanan";
 
 function Transaksi() {
   return (
