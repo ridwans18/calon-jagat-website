@@ -1,19 +1,19 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-import Transaksi from './Pages/Transaksi.jsx';
-import Produk from './Pages/Produk.jsx';
-import Beranda from './Pages/Beranda.jsx';
-import Kasir from './Pages/Kasir.jsx';
-import UserBeranda from './Pages/UserBeranda.jsx';
-import ViewPesanan from './Pages/ViewPesanan.jsx';
-import TambahProduk from './Pages/Tambahproduk.jsx';
+import Transaksi from "./Pages/Transaksi.jsx";
+import Produk from "./Pages/Produk.jsx";
+import Beranda from "./Pages/Beranda.jsx";
+import Kasir from "./Pages/Kasir.jsx";
+import UserBeranda from "./Pages/UserBeranda.jsx";
+import ViewPesanan from "./Pages/ViewPesanan.jsx";
+import TambahProduk from "./Pages/Tambahproduk.jsx";
 import EditProduk from "./Pages/EditProduk";
-import Login from './Pages/Login.jsx';
+import Login from "./Pages/Login.jsx";
 
 const router = createBrowserRouter([
-    {
+  {
     path: "/UserBeranda",
     element: <UserBeranda />,
   },
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     path: "/",
     element: <Beranda />,
   },
-    {
+  {
     path: "/Kasir",
     element: <Kasir />,
   },
