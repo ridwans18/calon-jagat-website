@@ -70,15 +70,15 @@ const SideBar = () => {
 
       {/* Footer SideBar */}
       <div className="items-center ">
-      {pengaturanItem.map((itemBott) => (
+        {pengaturanItem.map((itemBott) => (
           <Link
             to={itemBott.path}
             key={itemBott.nameBott}
             className={`w-full flex items-center px-3 py-2 p-2 rounded-md text-gray-800 hover:bg-green-200
               ${
                 location.pathname === itemBott.path
-                  ? 'text-green-600 border-l-5 border-green-600 hover:text-gray-800'
-                  : 'text-gray-800 hover:text-gray-800'
+                  ? "text-green-600 border-l-5 border-green-600 hover:text-gray-800"
+                  : "text-gray-800 hover:text-gray-800"
               }`}
           >
             <itemBott.icon className="h-5 w-5 mr-3" />
