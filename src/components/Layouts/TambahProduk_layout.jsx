@@ -1,19 +1,16 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-function TambahProduk() {
+function TambahProduklay() {
   const [images, setImages] = useState([]);
   const [notif, setNotif] = useState("");
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     nama: '',
     deskripsi: '',
     harga: '',
     stok: '',
-    kategori: '',
-    kondisi: 'baru',
-    panjang: '',
-    lebar: '',
-    tinggi: '',
-    berat: '',
   });
 
   const handleChange = (e) => {
@@ -26,7 +23,7 @@ function TambahProduk() {
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
     if (images.length + files.length <= 6) {
-      setImages(prev => [...prev, ...files]);
+      setImages((prev) => [...prev, ...files.map(file => URL.createObjectURL(file))]);
     } else {
       alert('Maksimal upload 6 gambar');
     }
@@ -38,10 +35,7 @@ function TambahProduk() {
   };
 
   const validateForm = () => {
-    const fields = [
-      'nama', 'deskripsi', 'harga', 'stok', 'kategori',
-      'panjang', 'lebar', 'tinggi', 'berat'
-    ];
+    const fields = ['nama', 'deskripsi', 'harga', 'stok'];
 
     for (let field of fields) {
       if (!formData[field]) {
@@ -62,21 +56,20 @@ function TambahProduk() {
     e.preventDefault();
     if (!validateForm()) return;
 
-    console.log('Data produk:', formData);
-    console.log('Gambar produk:', images);
+    const existingData = JSON.parse(localStorage.getItem("produk")) || [];
+    const newData = {
+      ...formData,
+      images,
+      id: Date.now(), // Tambahkan ID unik
+    };
 
-    // Reset form
+    localStorage.setItem("produk", JSON.stringify([...existingData, newData]));
+
     setFormData({
       nama: '',
       deskripsi: '',
       harga: '',
       stok: '',
-      kategori: '',
-      kondisi: 'baru',
-      panjang: '',
-      lebar: '',
-      tinggi: '',
-      berat: '',
     });
     setImages([]);
     setNotif("✅ Produk berhasil ditambahkan!");
@@ -84,7 +77,18 @@ function TambahProduk() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 bg-white rounded shadow-md max-w-3xl mx-auto">
+    <form onSubmit={handleSubmit} className="relative p-6 bg-white rounded shadow-md max-w-3xl mx-auto mt-6">
+      
+      {/* Tombol X di pojok kanan atas */}
+      <button
+        type="button"
+        onClick={() => navigate("/Produk")}
+        className="absolute top-3 right-3 bg-red-700 hover:bg-red-500 text-white font-bold rounded-md w-8 h-8 flex items-center justify-center shadow-md transition-colors"
+        title="Kembali ke daftar produk"
+      >
+        ✕
+      </button>
+
       <h2 className="text-xl font-semibold mb-4">Tambah Produk</h2>
 
       {/* Nama Produk */}
@@ -111,37 +115,6 @@ function TambahProduk() {
         </div>
       </div>
 
-      {/* Kategori */}
-      <div className="mb-4">
-        <label className="block mb-1 font-medium">Kategori</label>
-        <input type="text" name="kategori" value={formData.kategori} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
-      </div>
-
-      {/* Kondisi Produk */}
-      <div className="mb-4">
-        <label className="block mb-1 font-medium">Kondisi Produk</label>
-        <select name="kondisi" value={formData.kondisi} onChange={handleChange} className="w-full border px-3 py-2 rounded">
-          <option value="baru">Baru</option>
-          <option value="bekas">Bekas</option>
-        </select>
-      </div>
-
-      {/* Ukuran Produk */}
-      <div className="mb-4">
-        <label className="block mb-2 font-medium">Ukuran Produk (cm)</label>
-        <div className="grid grid-cols-3 gap-4">
-          <input type="number" name="panjang" placeholder="Panjang" value={formData.panjang} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
-          <input type="number" name="lebar" placeholder="Lebar" value={formData.lebar} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
-          <input type="number" name="tinggi" placeholder="Tinggi" value={formData.tinggi} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
-        </div>
-      </div>
-
-      {/* Berat Produk */}
-      <div className="mb-4">
-        <label className="block mb-1 font-medium">Berat Produk (gram)</label>
-        <input type="number" name="berat" value={formData.berat} onChange={handleChange} className="w-full border px-3 py-2 rounded" />
-      </div>
-
       {/* Upload Gambar */}
       <div className="mb-4">
         <label className="block mb-1 font-medium">Upload Gambar (maks. 6)</label>
@@ -152,7 +125,7 @@ function TambahProduk() {
         <div className="mt-3 grid grid-cols-3 gap-3">
           {images.map((img, index) => (
             <div key={index} className="relative w-full h-24 border rounded overflow-hidden">
-              <img src={URL.createObjectURL(img)} alt={`preview-${index}`} className="w-full h-full object-cover" />
+              <img src={img} alt={`preview-${index}`} className="w-full h-full object-cover" />
               <button
                 type="button"
                 onClick={() => handleRemoveImage(index)}
@@ -180,4 +153,4 @@ function TambahProduk() {
   );
 }
 
-export default TambahProduk;
+export default TambahProduklay;
