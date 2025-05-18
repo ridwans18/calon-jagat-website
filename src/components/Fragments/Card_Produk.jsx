@@ -8,8 +8,7 @@ function Card_Produk() {
   const [produk, setProduk] = useState([]);
   const navigate = useNavigate();
   const { data: products, loading, error } = useFetch(() => fetchData("ayam"));
-  console.log("products =>", products);
-  console.log("length =>", products.length);
+
   useEffect(() => {
     // const data = JSON.parse(localStorage.getItem("produk")) || [];
     // setProduk(data);
@@ -129,7 +128,7 @@ function Card_Produk() {
                       Hapus
                     </button>
                     <button
-                      onClick={() => navigate("/EditProduk")}
+                      onClick={() => navigate(`/EditProduk/${item.id}`)}
                       className="w-full text-left px-4 py-2 hover:bg-blue-100 text-blue-600 rounded-md"
                     >
                       Edit

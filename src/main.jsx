@@ -42,7 +42,7 @@ const router = createBrowserRouter([
     element: <TambahProduk />,
   },
   {
-    path: "/EditProduk",
+    path: "/EditProduk/:id",
     element: <EditProduk />,
   },
   {
