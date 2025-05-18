@@ -1,5 +1,5 @@
-import SideBar from '../components/Layouts/SideBar';
-import EditProduk_Layout from '../components/Layouts/EditProduk_Layout';
+import SideBar from "../components/Layouts/SideBar";
+import EditProduk_Layout from "../components/Layouts/EditProduk_Layout";
 
 function EditProduk() {
   return (
