@@ -2,7 +2,6 @@ import HeaderKontenViewPesanan from "../components/Layouts/HeaderKontenViewPesan
 import ProdukDipesan from "../components/Layouts/ProdukDipesan";
 import RincianPembayaran from "../components/Layouts/RincianPembayaran";
 import LanjutPembayaran from "../components/Layouts/LanjutPembayaran";
-import UserBeranda from "./UserBeranda";
 import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from "react-router-dom";
 
@@ -45,7 +44,7 @@ const ViewPesanan = () => {
       </div>
 
       {/* Lanjut Pembayaran */}
-      <LanjutPembayaran />
+      <LanjutPembayaran onClick={() => navigate("/PaymentMethod")} />
     </div>
   );
 };

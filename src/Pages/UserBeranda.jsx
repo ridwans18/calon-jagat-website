@@ -16,7 +16,7 @@ const UserBeranda = () => {
         <KategoriSortir />
 
         {/* Product Card */}
-        <ProdukCard productId={3} />
+        <ProdukCard />
 
         <div className="fixed bottom-3 right-6 flex justify-between items-center mb-4 shadow-lg">
           <button

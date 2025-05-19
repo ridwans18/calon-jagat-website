@@ -11,6 +11,7 @@ import ViewPesanan from "./Pages/ViewPesanan.jsx";
 import TambahProduk from "./Pages/Tambahproduk.jsx";
 import EditProduk from "./Pages/EditProduk";
 import Login from "./Pages/Login.jsx";
+import PaymentMethod from './Pages/PaymentMethod.jsx';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/ViewPesanan",
     element: <ViewPesanan />,
+  },
+  {
+    path: "/PaymentMethod",
+    element: <PaymentMethod />,
   },
   {
     path: "/TambahProduk",
