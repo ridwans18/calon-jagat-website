@@ -1,13 +1,17 @@
 import KategoriSortir from "../components/Layouts/Kategori-Sortir";
 import ProdukCard from "../components/Layouts/ProdukCard";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../hooks/CartContext";
 
 const UserBeranda = () => {
   const navigate = useNavigate();
+  const { cartItems } = useCart();
 
   const handleClick = () => {
     navigate("/ViewPesanan");
   };
+  
+  const totalItems = cartItems.reduce((sum, item) => sum + item.qty, 0);
 
   return (
     <div className="container min-h-screen min-w-screen bg-white mx-auto p-4">
@@ -25,7 +29,7 @@ const UserBeranda = () => {
                        hover:bg-green-500 focus:ring-2 focus:ring-green-400 
                        active:bg-green-700 transition duration-200"
           >
-            <span className="text-sm p-4">CHECKOUT (2)</span>
+            <span className="text-sm p-4">CHECKOUT ({totalItems})</span>
           </button>
         </div>
       </div>
