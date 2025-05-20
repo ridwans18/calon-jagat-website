@@ -6,7 +6,7 @@ import { ArrowLeftIcon } from '@heroicons/react/24/outline';
 import { useNavigate } from "react-router-dom";
 
 const ViewPesanan = () => {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleClick = () => {
     navigate("/UserBeranda");
@@ -34,8 +34,6 @@ const ViewPesanan = () => {
           <HeaderKontenViewPesanan />
 
           {/* Produk yang di pesan */}
-          <ProdukDipesan />
-          <ProdukDipesan />
           <ProdukDipesan />
         </div>
 
