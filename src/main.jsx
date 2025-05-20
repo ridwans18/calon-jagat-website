@@ -12,6 +12,8 @@ import TambahProduk from "./Pages/Tambahproduk.jsx";
 import EditProduk from "./Pages/EditProduk";
 import Login from "./Pages/Login.jsx";
 import PaymentMethod from './Pages/PaymentMethod.jsx';
+import { CartProvider } from "./hooks/CartContext";
+import React from "react";
 
 const router = createBrowserRouter([
   {
@@ -56,7 +58,9 @@ const router = createBrowserRouter([
   },
 ]);
 createRoot(document.getElementById("root")).render(
-  <StrictMode>
-    <RouterProvider router={router} />
-  </StrictMode>
+  <React.StrictMode>
+    <CartProvider>
+      <RouterProvider router={router} />
+    </CartProvider>
+  </React.StrictMode>
 );
