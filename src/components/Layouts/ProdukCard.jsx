@@ -6,7 +6,6 @@ import Loading from "../Fragments/Loading";
 
 const ProdukCard = () => {
   const { data: products, loading, error } = useFetch(fetchProducts);
-  console.log(loading);
 
   // if (loading) return <Loading />;
   // if (error)

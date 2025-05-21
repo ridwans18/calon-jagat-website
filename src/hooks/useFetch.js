@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useFetch = (fetchFunction) => {
+const useFetch = (fetchFunction, autofetch = true) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -24,10 +24,10 @@ const useFetch = (fetchFunction) => {
   // };
 
   useEffect(() => {
-    fetchData();
+    if (autofetch) fetchData();
   }, []);
 
-  return { data, loading, error, fetchData };
+  return { data, loading, error, refetch: fetchData };
 };
 
 export default useFetch;
