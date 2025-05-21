@@ -5,15 +5,23 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../hooks/CartContext";
 import useFetch from "../hooks/useFetch";
 import { fetchData, postdata } from "../services/api";
+import {
+  getFromLocalStorage,
+  saveToLocalStorage,
+} from "../services/localstorage";
 
 const PaymentMethod = () => {
   const navigate = useNavigate();
   const { cartItems, clearCart } = useCart();
+  const [DataPelanggan, setDataPelanggan] = useState(
+    getFromLocalStorage("DataPelanggan") || {}
+  );
+  console.log(DataPelanggan);
   const [DataPesanan, setDataPesanan] = useState({
     createdAt: new Date().toISOString(),
-    namapelanggan: "",
-    nomorhp: "",
-    email: "",
+    namapelanggan: DataPelanggan.namapelanggan,
+    nomorhp: DataPelanggan.nomorhp,
+    email: DataPelanggan.email,
     iduser: "2893456", // bisa diganti dinamis
     totalpembayaran: 0,
     produk: cartItems.map((item) => ({
@@ -50,7 +58,11 @@ const PaymentMethod = () => {
       alert("Nama dan nomor HP wajib diisi!");
       return;
     }
-
+    saveToLocalStorage("DataPelanggan", {
+      namapelanggan: DataPesanan.namapelanggan,
+      nomorhp: DataPesanan.nomorhp,
+      email: DataPesanan.email,
+    });
     await refetch();
   };
 
