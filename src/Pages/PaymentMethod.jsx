@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../hooks/CartContext";
 import useFetch from "../hooks/useFetch";
-import { fetchData, postdata } from "../services/api";
+import { postdata } from "../services/api";
 import {
   getFromLocalStorage,
   saveToLocalStorage,
@@ -16,7 +16,7 @@ const PaymentMethod = () => {
   const [DataPelanggan, setDataPelanggan] = useState(
     getFromLocalStorage("DataPelanggan") || {}
   );
-  console.log(DataPelanggan);
+
   const [DataPesanan, setDataPesanan] = useState({
     createdAt: new Date().toISOString(),
     namapelanggan: DataPelanggan.namapelanggan,
@@ -33,8 +33,7 @@ const PaymentMethod = () => {
     () => postdata("pesanan", DataPesanan),
     false
   );
-  // console.log(DataPesanan.namapelanggan);
-  // console.log(cartItems);
+
   const handleChange = (e) => {
     setDataPesanan({
       ...DataPesanan,
