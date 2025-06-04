@@ -1,5 +1,11 @@
 import Cashier_Produk from "../Fragments/Cashier_Produk";
 import { useCart } from "../../hooks/CartContext";
+import {
+  getFromLocalStorage,
+  removeFromLocalStorage,
+  saveToLocalStorage,
+} from "../../services/localstorage";
+import { useEffect, useState } from "react";
 
 const productsKasir = [
   { id: 1, name: "Latte Coffee", price: 25000, image: "☕" },
@@ -20,31 +26,118 @@ const productsKasir = [
   { id: 16, name: "Choco Long Bread", price: 17000, image: "🥖" },
 ];
 
-const productOnline = [
-  { id: 1, name: "Paha Atas", jumlah: 2 },
-  { id: 2, name: "Paha Bawah", jumlah: 4 },
-  { id: 3, name: "Sayap", jumlah: 1 },
-  { id: 4, name: "Dada", jumlah: 2 },
-  { id: 5, name: "Sadas", jumlah: 2 },
-];
-
-const productDitinggal = [
-  { id: 1, name: "Pada Atas", jumlah: 1 },
-  { id: 2, name: "Paha Bawah", jumlah: 3 },
-  { id: 3, name: "Sayap", jumlah: 3 },
-  { id: 4, name: "Dada", jumlah: 1 },
-  { id: 5, name: "Sadas", jumlah: 1 },
-];
+// const productDitinggal = [
+//   { id: 1, name: "Pada Atas", jumlah: 1 },
+//   { id: 2, name: "Paha Bawah", jumlah: 3 },
+//   { id: 3, name: "Sayap", jumlah: 3 },
+//   { id: 4, name: "Dada", jumlah: 1 },
+//   { id: 5, name: "Sadas", jumlah: 1 },
+// ];
 
 function ContentKasir() {
   const { cartItems, updateQty, removeFromCart, addToCart, clearCart } =
     useCart();
 
+  const [productDitinggal, setProductDitinggal] = useState(
+    getFromLocalStorage("productDitinggal") || []
+  );
+  const [ProductOnline, setProductOnline] = useState([
+    {
+      orderId: "ORD10001",
+      customerName: "Andi Wijaya",
+      timestamp: "2025-06-04T08:15:00Z",
+      isProses: false,
+      isDone: false,
+      items: [
+        { id: 1, name: "Paha Atas", jumlah: 2 },
+        {
+          id: 2,
+          name: "Paha Bawah",
+          jumlah: 3,
+        },
+        { id: 3, name: "Sayap", jumlah: 1 },
+      ],
+    },
+    {
+      orderId: "ORD10002",
+      customerName: "Siti Rahma",
+      timestamp: "2025-06-04T08:45:00Z",
+      isProses: false,
+      isDone: false,
+      items: [
+        { id: 4, name: "Dada", jumlah: 4 },
+        {
+          id: 2,
+          name: "Paha Bawah",
+          jumlah: 2,
+        },
+      ],
+    },
+    {
+      orderId: "ORD10003",
+      customerName: "Budi Santoso",
+      timestamp: "2025-06-04T09:10:00Z",
+      isProses: false,
+      isDone: false,
+      items: [
+        { id: 3, name: "Sayap", jumlah: 2 },
+        { id: 5, name: "Sadas", jumlah: 2 },
+      ],
+    },
+    {
+      orderId: "ORD10004",
+      customerName: "Rina Marlina",
+      timestamp: "2025-06-04T09:30:00Z",
+      isProses: false,
+      isDone: false,
+      items: [
+        { id: 1, name: "Paha Atas", jumlah: 1 },
+        { id: 4, name: "Dada", jumlah: 3 },
+      ],
+    },
+    {
+      orderId: "ORD10005",
+      customerName: "Joko Priyono",
+      timestamp: "2025-06-04T10:00:00Z",
+      isProses: false,
+      isDone: false,
+      items: [
+        {
+          id: 2,
+          name: "Paha Bawah",
+          jumlah: 2,
+        },
+        { id: 3, name: "Sayap", jumlah: 1 },
+        { id: 5, name: "Sadas", jumlah: 1 },
+      ],
+    },
+  ]);
+
+  const [Total, setTotal] = useState(0);
+  useEffect(() => {
+    setTotal(cartItems.reduce((sum, item) => sum + item.price, 0));
+  }, [cartItems]);
+
   const addtocart = (product) => {
     addToCart(product);
   };
 
-  const total = cartItems.reduce((sum, item) => sum + item.price, 0);
+  const takelater = (product) => {
+    setProductDitinggal([
+      ...productDitinggal,
+      { product: [...product], id: productDitinggal.length + 1 },
+    ]);
+    saveToLocalStorage("productDitinggal", productDitinggal);
+    clearCart();
+  };
+
+  const handleProcess = (id) => {
+    setProductOnline(
+      ProductOnline.map((item) =>
+        item.orderId === id ? { ...item, isProses: true } : item
+      )
+    );
+  };
 
   return (
     <div className="flex h-155 bg-white">
@@ -94,12 +187,13 @@ function ContentKasir() {
         <div className="pt-4 border-t mt-4">
           <div className="flex justify-between text-lg font-semibold">
             <span>Total</span>
-            <span>Rp{total.toLocaleString("id-ID")}</span>
+            <span>Rp{Total.toLocaleString("id-ID")}</span>
           </div>
           <div className="flex gap-2 mt-4">
             <button
               className="w-1/2 bg-pink-400 hover:bg-pink-500 text-white py-2 rounded-md font-bold 
                                  active:bg-pink-700 transition duration-200 cursor-pointer"
+              onClick={() => takelater(cartItems)}
             >
               Ditinggal
             </button>
@@ -120,36 +214,21 @@ function ContentKasir() {
             Pesan Melalui Website
           </h2>
           <div className="grid grid-cols-2 gap-4 mt-2">
-            {productOnline.map((product, index) => (
+            {ProductOnline.map((product, index) => (
               <div
                 key={product.id}
                 className="flex w-53 h-23 rounded-lg overflow-hidden shadow border border-gray-200"
               >
                 <div className="flex flex-col items-center gap-2 flex-1 bg-green-100 p-2 overflow-y-auto">
-                  <div className="flex justify-between w-full text-xs font-semibold">
-                    <span>{product.name}</span>
-                    <span>{product.jumlah}</span>
-                  </div>
-                  <div className="flex justify-between w-full text-xs font-semibold">
-                    <span>{product.name}</span>
-                    <span>{product.jumlah}</span>
-                  </div>
-                  <div className="flex justify-between w-full text-xs font-semibold">
-                    <span>{product.name}</span>
-                    <span>{product.jumlah}</span>
-                  </div>
-                  <div className="flex justify-between w-full text-xs font-semibold">
-                    <span>{product.name}</span>
-                    <span>{product.jumlah}</span>
-                  </div>
-                  <div className="flex justify-between w-full text-xs font-semibold">
-                    <span>{product.name}</span>
-                    <span>{product.jumlah}</span>
-                  </div>
-                  <div className="flex justify-between w-full text-xs font-semibold">
-                    <span>{product.name}</span>
-                    <span>{product.jumlah}</span>
-                  </div>
+                  {product.items.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex justify-between w-full text-xs font-semibold"
+                    >
+                      <span>{item.name}</span>
+                      <span>{item.jumlah}</span>
+                    </div>
+                  ))}
                 </div>
 
                 {/* KANAN: Kotak atas (nomor) dan bawah ("Proses?") */}
@@ -157,13 +236,23 @@ function ContentKasir() {
                   <div className="flex items-center justify-center bg-orange-400 flex-1 text-white font-bold">
                     {index + 1}
                   </div>
-                  <button
-                    onClick={() => handleProcess(product)}
-                    className="flex items-center justify-center bg-blue-500 hover:bg-blue-600 flex-1 text-white text-xs
+                  {product.isProses === false ? (
+                    <button
+                      onClick={() => handleProcess(product.orderId)}
+                      className="flex items-center justify-center bg-blue-500 hover:bg-blue-600 flex-1 text-white text-xs
                                        active:bg-blue-700 transition duration-200 cursor-pointer"
-                  >
-                    Proses?
-                  </button>
+                    >
+                      Proses?
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => handleDone(product)}
+                      className="flex items-center justify-center bg-green-500 hover:bg-green-600 flex-1 text-white text-xs
+                                       active:bg-green-700 transition duration-200 cursor-pointer"
+                    >
+                      Selesai?
+                    </button>
+                  )}
                 </div>
               </div>
             ))}
@@ -183,30 +272,15 @@ function ContentKasir() {
               >
                 {/* KIRI: Gambar & Nama */}
                 <div className="flex flex-col items-center gap-2 flex-1 bg-pink-100 p-2 overflow-y-auto">
-                  <div className="flex justify-between w-full text-xs font-semibold">
-                    <span>{product.name}</span>
-                    <span>{product.jumlah}</span>
-                  </div>
-                  <div className="flex justify-between w-full text-xs font-semibold">
-                    <span>{product.name}</span>
-                    <span>{product.jumlah}</span>
-                  </div>
-                  <div className="flex justify-between w-full text-xs font-semibold">
-                    <span>{product.name}</span>
-                    <span>{product.jumlah}</span>
-                  </div>
-                  <div className="flex justify-between w-full text-xs font-semibold">
-                    <span>{product.name}</span>
-                    <span>{product.jumlah}</span>
-                  </div>
-                  <div className="flex justify-between w-full text-xs font-semibold">
-                    <span>{product.name}</span>
-                    <span>{product.jumlah}</span>
-                  </div>
-                  <div className="flex justify-between w-full text-xs font-semibold">
-                    <span>{product.name}</span>
-                    <span>{product.jumlah}</span>
-                  </div>
+                  {product.product.map((takelater, i) => (
+                    <div
+                      className="flex justify-between w-full text-xs font-semibold"
+                      key={i}
+                    >
+                      <span>{takelater.name}</span>
+                      <span>{takelater.qty}</span>
+                    </div>
+                  ))}
                 </div>
 
                 {/* KANAN: Kotak atas (nomor) dan bawah ("Proses?") */}
