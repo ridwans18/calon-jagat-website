@@ -3,9 +3,18 @@ import useFetch from "../../hooks/useFetch";
 import fetchProducts from "../../hooks/produkFetch";
 import Card_Produk_User from "../Fragments/Card_Produk_User";
 import Loading from "../Fragments/Loading";
+import { data } from "react-router-dom";
+import { fetchData } from "../../services/api";
 
 const ProdukCard = () => {
-  const { data: products, loading, error } = useFetch(fetchProducts);
+  const {
+    data: products,
+    loading,
+    error,
+  } = useFetch(() => fetchData("produk"));
+  console.log("produk", products);
+  console.log(loading);
+  // console.log("data", data);
 
   // if (loading) return <Loading />;
   // if (error)
@@ -25,15 +34,16 @@ const ProdukCard = () => {
           </div>
         )}
 
-        {products &&
-          products.map((product) => (
+        {products.data &&
+          products.data.map((product) => (
             <Card_Produk_User
-              key={product.id}
-              image={product.image}
-              id={product.id}
-              name={product.name}
-              price={product.price}
+              key={product.id_produk}
+              img={product.img}
+              id={product.id_produk}
+              name={product.nama_produk}
+              price={product.harga}
               stock={product.stock}
+              product={product}
             />
           ))}
       </div>

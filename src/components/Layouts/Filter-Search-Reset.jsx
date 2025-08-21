@@ -4,7 +4,7 @@ import ResetFilter from "../Fragments/ResetFilter";
 
 function FilterSearchReset() {
   return (
-    <div className="mt-6 bg-gray-100 border border-gray-200 rounded-md shadow-sm overflow-hidden p-4">
+    <div className="mt-6 bg-gray-100 border border-gray-200 rounded-md shadow-sm overflow-hidden p-4 ">
       {/* Filter & Search Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         {/* Kiri: Dropdown + Checkbox */}

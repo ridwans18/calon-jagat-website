@@ -5,6 +5,7 @@ export const fetchData = async (url) => {
       `${import.meta.env.VITE_API_baseurl}${url}`
     );
     const data = await response.data;
+
     return data;
   } catch (error) {
     console.log(error);
@@ -13,14 +14,30 @@ export const fetchData = async (url) => {
 
 export const postdata = async (url, isidata) => {
   try {
-    const response = await axios.post(
-      `${import.meta.env.VITE_API_baseurl}${url}`,
-      isidata
-    );
+    const urlfinal = `${import.meta.env.VITE_API_baseurl}${url}`;
+    const response = await axios.post(urlfinal, isidata);
     const data = await response.data;
+    console.log(data);
     return data;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const postimg = async (url, isidata) => {
+  try {
+    const res = await axios.post(
+      `${import.meta.env.VITE_API_baseurl}${url}`,
+      isidata,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+    alert("Berhasil upload produk");
+  } catch (err) {
+    console.error("Gagal upload:", err);
   }
 };
 
@@ -30,6 +47,7 @@ export const deletedata = async (url, id) => {
       `${import.meta.env.VITE_API_baseurl}${url}/${id}`
     );
     const data = await response.data;
+    console.log(data);
     return data;
   } catch (error) {
     console.log(error);

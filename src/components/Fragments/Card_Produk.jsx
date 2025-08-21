@@ -1,18 +1,33 @@
 import { IoIosArrowDown } from "react-icons/io";
 import { useEffect, useState, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { data, useNavigate, useSearchParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { deletedata, fetchData } from "../../services/api";
 
-function Card_Produk() {
+function Card_Produk({ changepage }) {
+  const [searchParams] = useSearchParams();
+  const [pagetotal, setpagetotal] = useState();
+
   const [produk, setProduk] = useState([]);
   const navigate = useNavigate();
-  const { data: products, loading, error } = useFetch(() => fetchData("ayam"));
+  const {
+    data: products,
+    loading,
+    error,
+    refetch,
+  } = useFetch(
+    () => fetchData(`produk?page=${searchParams.get("page")}&limit=5`),
+    false
+  );
+
+  // console.log(products.total_page);
 
   useEffect(() => {
-    // const data = JSON.parse(localStorage.getItem("produk")) || [];
-    // setProduk(data);
-  }, []);
+    // async () => await refetch();
+    const fetcing = async () => await refetch();
+    fetcing();
+    changepage(products.total_page);
+  }, [searchParams]);
 
   const handleSave = (index, updatedData) => {
     const newProduk = [...produk];
@@ -22,8 +37,8 @@ function Card_Produk() {
   };
 
   const handleDelete = async (indexToDelete) => {
-    await deletedata("ayam", indexToDelete);
-    console.log("terhapus");
+    await deletedata("produk", indexToDelete);
+    refetch();
   };
 
   const [dropdownIndex, setDropdownIndex] = useState(null);
@@ -55,14 +70,11 @@ function Card_Produk() {
       {products.length === 0 ? (
         <p>Tidak ada produk</p>
       ) : (
-        (products || []).map((item, index) => (
+        products.data.map((item, index) => (
           <div
             key={index}
             className="flex gap-4 items-start p-4 border rounded-lg shadow-sm bg-white"
           >
-            {/* Checkbox */}
-            <input type="checkbox" className="w-3 h-3" />
-
             {/* Gambar dan Nama Produk */}
             <div className="min-w-[323px] flex gap-2">
               {item.images?.map((src, i) => (
@@ -73,7 +85,7 @@ function Card_Produk() {
                   className="w-20 h-20 object-cover border rounded"
                 />
               ))}
-              <p>{item.nama}</p>
+              <p>{item.nama_produk}</p>
             </div>
 
             {/* Harga */}
@@ -84,7 +96,7 @@ function Card_Produk() {
                 </div>
                 <input
                   type="text"
-                  value={item.price}
+                  value={item.harga}
                   className="w-full outline-none"
                   readOnly
                 />
@@ -93,7 +105,7 @@ function Card_Produk() {
 
             {/* Stok */}
             <div className="min-w-[160px] w-full">
-              <input type="text" value={item.stok} readOnly />
+              <input type="text" value={item.stock} readOnly />
             </div>
 
             {/* Deskripsi */}
@@ -103,7 +115,11 @@ function Card_Produk() {
 
             {/* Status */}
             <div className="min-w-[150px] w-full">
-              <p>Tersedia</p>
+              {item.stock > 0 ? (
+                <p className="text-green-600">Tersedia</p>
+              ) : (
+                <p className="text-red-600">Tidak Tersedia</p>
+              )}
             </div>
 
             {/* Opsi Dropdown */}
@@ -122,13 +138,13 @@ function Card_Produk() {
                 {dropdownIndex === index && (
                   <div className="absolute top-full w-39 bg-white border border-gray-50 shadow-md rounded-md text-sm z-90">
                     <button
-                      onClick={() => handleDelete(item.id)}
+                      onClick={() => handleDelete(item.id_produk)}
                       className="w-full text-left px-4 py-2 hover:bg-red-100 text-red-600 rounded-md"
                     >
                       Hapus
                     </button>
                     <button
-                      onClick={() => navigate(`/EditProduk/${item.id}`)}
+                      onClick={() => navigate(`/EditProduk/${item.id_produk}`)}
                       className="w-full text-left px-4 py-2 hover:bg-blue-100 text-blue-600 rounded-md"
                     >
                       Edit

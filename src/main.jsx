@@ -11,9 +11,11 @@ import ViewPesanan from "./Pages/ViewPesanan.jsx";
 import TambahProduk from "./Pages/Tambahproduk.jsx";
 import EditProduk from "./Pages/EditProduk";
 import Login from "./Pages/Login.jsx";
-import PaymentMethod from './Pages/PaymentMethod.jsx';
+import PaymentMethod from "./Pages/PaymentMethod.jsx";
 import { CartProvider } from "./hooks/CartContext";
 import React from "react";
+import Saran from "./Pages/Saran.jsx";
+import OrderStatus from "./Pages/OrderStatus.jsx";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +39,10 @@ const router = createBrowserRouter([
     element: <Transaksi />,
   },
   {
+    path: "/Saran",
+    element: <Saran />,
+  },
+  {
     path: "/ViewPesanan",
     element: <ViewPesanan />,
   },
@@ -55,6 +61,10 @@ const router = createBrowserRouter([
   {
     path: "/Login",
     element: <Login />,
+  },
+  {
+    path: "/orderstatus",
+    element: <OrderStatus />,
   },
 ]);
 createRoot(document.getElementById("root")).render(

@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function Form_Produk({
   handleSubmit,
@@ -16,6 +17,9 @@ function Form_Produk({
       [e.target.name]: e.target.value,
     });
   };
+
+  const navigate = useNavigate();
+
   return (
     <form
       onSubmit={handleSubmit}
@@ -72,8 +76,8 @@ function Form_Produk({
           <label className="block mb-1 font-medium">Stok</label>
           <input
             type="number"
-            name="stok"
-            value={formData.stok}
+            name="stock"
+            value={formData.stock}
             onChange={handleChange}
             className="w-full border px-3 py-2 rounded"
           />
@@ -100,25 +104,26 @@ function Form_Produk({
           Pilih Gambar
         </label>
         <div className="mt-3 grid grid-cols-3 gap-3">
-          {images.map((img, index) => (
-            <div
-              key={index}
-              className="relative w-full h-24 border rounded overflow-hidden"
-            >
-              <img
-                src={img}
-                alt={`preview-${index}`}
-                className="w-full h-full object-cover"
-              />
-              <button
-                type="button"
-                onClick={handleRemoveImage}
-                className="absolute top-1 right-1 bg-red-600 text-white rounded-full px-2 py-0 text-xs hover:bg-red-700"
+          {images &&
+            images.map((img, index) => (
+              <div
+                key={index}
+                className="relative w-full h-24 border rounded overflow-hidden"
               >
-                ✕
-              </button>
-            </div>
-          ))}
+                <img
+                  src={img}
+                  alt={`preview-${index}`}
+                  className="w-full h-full object-cover"
+                />
+                <button
+                  type="button"
+                  onClick={() => handleRemoveImage(index)}
+                  className="absolute top-1 right-1 bg-red-600 text-white rounded-full px-2 py-0 text-xs hover:bg-red-700"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
         </div>
       </div>
 

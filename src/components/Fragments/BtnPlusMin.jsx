@@ -4,15 +4,17 @@ import { useCart } from "../../hooks/CartContext";
 function BtnPlusMin({ id }) {
   const { cartItems, updateQty, removeFromCart } = useCart();
 
-  const product = cartItems.find((item) => item.id === id);
+  const product = cartItems.find((item) => item.id_produk === id);
   if (!product) return null;
 
   const increaseQty = () => {
+    console.log(product);
     updateQty(id, product.qty + 1);
   };
 
   const decreaseQty = () => {
     const newQty = product.qty - 1;
+
     if (newQty <= 0) {
       removeFromCart(id);
     } else {

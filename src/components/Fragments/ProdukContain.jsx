@@ -1,18 +1,13 @@
-import pocongmatotIMG from '../../assets/pocongmatot.jpg';
+import pocongmatotIMG from "../../assets/pocongmatot.jpg";
 
-function ProdukContain({ children }) {
-    return (
+function ProdukContain({ children, img }) {
+  return (
     <div className="flex items-start gap-4">
-        <img
-        src={pocongmatotIMG}
-        alt="Produk"
-        className="w-20 h-20 rounded object-cover"
-        />
-        <div>
-            { children }
-        </div>
+      <img className="w-20 h-20 rounded object-cover" src={img} alt="" />
+
+      <div>{children}</div>
     </div>
-    );
+  );
 }
 
 export default ProdukContain;

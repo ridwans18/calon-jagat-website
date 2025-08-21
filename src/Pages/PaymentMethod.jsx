@@ -7,6 +7,7 @@ import useFetch from "../hooks/useFetch";
 import { postdata } from "../services/api";
 import {
   getFromLocalStorage,
+  removeFromLocalStorage,
   saveToLocalStorage,
 } from "../services/localstorage";
 
@@ -16,6 +17,7 @@ const PaymentMethod = () => {
   const [DataPelanggan, setDataPelanggan] = useState(
     getFromLocalStorage("DataPelanggan") || {}
   );
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const [DataPesanan, setDataPesanan] = useState({
     createdAt: new Date().toISOString(),
@@ -25,14 +27,21 @@ const PaymentMethod = () => {
     iduser: "2893456", // bisa diganti dinamis
     totalpembayaran: 0,
     produk: cartItems.map((item) => ({
-      id: item.id,
-      kuantiti: item.qty,
+      id_produk: item.id_produk,
+      qty: item.qty,
     })),
   });
-  const { data, loading, error, refetch } = useFetch(
-    () => postdata("pesanan", DataPesanan),
-    false
-  );
+  // const { data, loading, error, refetch } = useFetch(
+  //   () =>
+  //     postdata("payment", {
+  //       amount: DataPesanan.totalpembayaran,
+  //       data_pesanan: DataPesanan.produk,
+  //       nama_pelanggan: DataPesanan.namapelanggan,
+  //       phone: DataPesanan.nomorhp,
+  //       email_pelanggan: DataPesanan.email,
+  //     }),
+  //   false
+  // );
 
   const handleChange = (e) => {
     setDataPesanan({
@@ -45,7 +54,9 @@ const PaymentMethod = () => {
 
   useEffect(() => {
     const total =
-      cartItems.reduce((sum, item) => sum + item.price * item.qty, 0) + 1300;
+      cartItems.reduce((total, item) => {
+        return total + item.harga * item.qty;
+      }, 0) + 1300;
     setDataPesanan({
       ...DataPesanan,
       totalpembayaran: total,
@@ -57,12 +68,24 @@ const PaymentMethod = () => {
       alert("Nama dan nomor HP wajib diisi!");
       return;
     }
+    setIsDisabled(true);
     saveToLocalStorage("DataPelanggan", {
       namapelanggan: DataPesanan.namapelanggan,
       nomorhp: DataPesanan.nomorhp,
       email: DataPesanan.email,
     });
-    await refetch();
+    console.log(DataPesanan.produk);
+
+    const response = await postdata("payment", {
+      amount: DataPesanan.totalpembayaran,
+      data_pesanan: DataPesanan.produk,
+      nama_pelanggan: DataPesanan.namapelanggan,
+      phone: DataPesanan.nomorhp,
+      email_pelanggan: DataPesanan.email,
+    });
+
+    window.snap.pay(response.token);
+    removeFromLocalStorage("cartItems");
   };
 
   return (
@@ -168,7 +191,10 @@ const PaymentMethod = () => {
           </div>
           <button
             onClick={handleSubmit}
-            className="bg-green-600 hover:bg-green-800 text-white px-4 py-2 rounded-xl"
+            disabled={isDisabled}
+            className={` bg-green-600  text-white px-4 py-2 rounded-xl ${
+              isDisabled ? "opacity-50" : "hover:bg-green-800"
+            }`}
           >
             Bayar
           </button>

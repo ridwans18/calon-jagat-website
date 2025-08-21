@@ -10,7 +10,7 @@ const UserBeranda = () => {
   const handleClick = () => {
     navigate("/ViewPesanan");
   };
-  
+
   const totalItems = cartItems.reduce((sum, item) => sum + item.qty, 0);
 
   return (

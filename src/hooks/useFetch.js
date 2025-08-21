@@ -10,18 +10,13 @@ const useFetch = (fetchFunction, autofetch = true) => {
       setLoading(true);
       const response = await fetchFunction();
       setData(response);
+      // return response;
     } catch (err) {
       setError(err);
     } finally {
       setLoading(false);
     }
   };
-
-  // const reset = () => {
-  //   setData(null);
-  //   setLoading(false);
-  //   setError(null);
-  // };
 
   useEffect(() => {
     if (autofetch) fetchData();

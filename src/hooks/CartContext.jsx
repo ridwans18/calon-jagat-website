@@ -16,11 +16,16 @@ export const CartProvider = ({ children }) => {
   }, [cartItems]);
 
   const addToCart = (product) => {
-    const exist = cartItems.find((item) => item.id === product.id);
+    const exist = cartItems.find(
+      (item) => item.id_produk === product.id_produk
+    );
+
     if (exist) {
       setCartItems(
         cartItems.map((item) =>
-          item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+          item.id_produk === product.id_produk
+            ? { ...item, qty: item.qty + 1 }
+            : item
         )
       );
     } else {
@@ -30,16 +35,18 @@ export const CartProvider = ({ children }) => {
 
   const updateQty = (id, qty) => {
     if (qty <= 0) {
-      setCartItems(cartItems.filter((item) => item.id !== id));
+      setCartItems(cartItems.filter((item) => item.id_produk !== id));
     } else {
       setCartItems(
-        cartItems.map((item) => (item.id === id ? { ...item, qty } : item))
+        cartItems.map((item) =>
+          item.id_produk === id ? { ...item, qty } : item
+        )
       );
     }
   };
 
   const removeFromCart = (id) => {
-    setCartItems(cartItems.filter((item) => item.id !== id));
+    setCartItems(cartItems.filter((item) => item.id_produk !== id));
   };
 
   const clearCart = () => {
