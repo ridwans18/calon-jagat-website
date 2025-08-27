@@ -1,5 +1,3 @@
-import pocongmatotIMG from "../../assets/pocongmatot.jpg";
-
 function ProdukContain({ children, img }) {
   return (
     <div className="flex items-start gap-4">

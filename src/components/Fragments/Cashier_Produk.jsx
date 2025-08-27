@@ -12,7 +12,7 @@ function Cashier_Produk({ index, name, price, id }) {
         {/* Nama Produk dan Harga */}
         <div className="flex flex-col ml-2">
           <span>{name}</span>
-          <span className="text-sm text-gray-600">Rp{price}</span>
+          <span className="text-sm text-gray-600">Rp{price.toLocaleString("id-ID")}</span>
         </div>
       </div>
       {/* Button PlusMinus */}

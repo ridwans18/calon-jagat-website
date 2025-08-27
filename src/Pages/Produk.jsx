@@ -3,10 +3,9 @@ import SideBar from "../components/Layouts/SideBar";
 
 function Produk() {
   return (
-    <div className="flex min-h-screen bg-white">
+    <div className="flex h-screen w-screen bg-white">
       <SideBar />
-      <main className="flex-1 p-6">
-        {/* Add your content here */}
+      <main className="flex-1 p-6 overflow-y-auto">
         <Produk_Layout />
       </main>
     </div>

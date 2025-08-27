@@ -5,7 +5,7 @@ import ContentPesanan from "../components/Layouts/ContentPesanan";
 
 function Transaksi() {
   return (
-    <div className="flex min-h-screen bg-white">
+    <div className="flex h-screen w-screen bg-white">
       <SideBar />
       <main className="flex-1 p-6 ">
         <h2 className="text-xl font-semibold mb-4">Daftar Transaksi</h2>

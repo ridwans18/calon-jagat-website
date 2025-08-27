@@ -27,7 +27,7 @@ const ProdukCard = () => {
 
   return (
     <div className="container mx-auto">
-      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 justify-center relative ">
+      <div className="grid grid-cols-2 gap-4 justify-center relative ">
         {loading && (
           <div className="absolute left-1/2 translate-y-12">
             <Loading size="large" />

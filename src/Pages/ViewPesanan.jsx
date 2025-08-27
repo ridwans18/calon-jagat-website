@@ -13,7 +13,7 @@ const ViewPesanan = () => {
   };
 
   return (
-    <div className="min-h-screen bg-white shadow-md relative">
+    <div className="bg-white">
       {/* Header */}
       <div className="w-full fixed top-0 left-0 z-50 h-13 flex justify-center">
         <div className="bg-white rounded-b-lg shadow-md w-full max-w-md px-4 py-3 flex flex-row gap-4">
@@ -28,7 +28,7 @@ const ViewPesanan = () => {
         </div>
       </div>
 
-      <div className="min-h-screen p-4 pt-18 pb-28 bg-white shadow-md max-w-md mx-auto">
+      <div className="min-h-screen p-4 pt-18 pb-18 bg-white shadow-md max-w-md mx-auto">
         <div className="mb-4 font-semibold">
           {/* Header Konten Pesanan */}
           <HeaderKontenViewPesanan />

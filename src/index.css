@@ -9,3 +9,16 @@ body {
   --color-secondary: #e5e7eb;
   --spacing-left: 12px;
 }
+
+/* styles.css */
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  /* Untuk Internet Explorer dan Edge */
+  scrollbar-width: none;
+  /* Untuk Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+  /* Untuk Chrome, Safari, dan Opera */
+}

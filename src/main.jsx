@@ -16,6 +16,8 @@ import { CartProvider } from "./hooks/CartContext";
 import React from "react";
 import Saran from "./Pages/Saran.jsx";
 import OrderStatus from "./Pages/OrderStatus.jsx";
+import History from "./Pages/History.jsx";
+import Pengaturan from "./Pages/Pengaturan.jsx";
 
 const router = createBrowserRouter([
   {
@@ -65,6 +67,14 @@ const router = createBrowserRouter([
   {
     path: "/orderstatus",
     element: <OrderStatus />,
+  },
+  {
+    path: "/History",
+    element: <History />,
+  },
+  {
+    path: "/Pengaturan",
+    element: <Pengaturan />,
   },
 ]);
 createRoot(document.getElementById("root")).render(

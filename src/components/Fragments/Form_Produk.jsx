@@ -87,7 +87,7 @@ function Form_Produk({
       {/* Upload Gambar */}
       <div className="mb-4">
         <label className="block mb-1 font-medium">
-          Upload Gambar (maks. 6)
+          Upload Gambar (maks. 1)
         </label>
         <input
           type="file"

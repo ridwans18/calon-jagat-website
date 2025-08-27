@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import SabanaLogo from "../../assets/sabana-logo.png"; 
 import {
   UserIcon,
   HomeIcon,
@@ -7,15 +8,17 @@ import {
   CubeIcon,
   ClipboardDocumentCheckIcon,
   ChatBubbleLeftRightIcon,
-  Cog6ToothIcon,
+  Cog6ToothIcon,  
   ArrowRightOnRectangleIcon,
   Bars3Icon,
   XMarkIcon,
+  BanknotesIcon,
+  ShoppingCartIcon,
 } from '@heroicons/react/24/outline';
 
 const navItems = [
-  { name: 'User Beranda', icon: UserIcon, path: '/UserBeranda' },
-  { name: 'Admin Beranda', icon: HomeIcon, path: '/' },
+  // { name: 'User Beranda', icon: UserIcon, path: '/UserBeranda' },
+  { name: 'Dashboard', icon: HomeIcon, path: '/' },
   { name: 'Kasir', icon: CreditCardIcon, path: '/Kasir' },
   { name: 'Produk', icon: CubeIcon, path: '/Produk' },
   { name: 'Transaksi', icon: ClipboardDocumentCheckIcon, path: '/Transaksi' },
@@ -45,7 +48,7 @@ const SideBar = () => {
     <aside
       className={`${
         isOpen ? 'w-56' : 'w-20'
-      } min-h-screen bg-gray-100 border-r border-gray-300 rounded-r-4xl font-semibold shadow-sm p-2 
+      } min-h-screen bg-gray-100 border-r border-gray-200 rounded-r-4xl font-semibold shadow-md p-2 
         flex flex-col justify-between transition-all duration-300 overflow-hidden`}
     >
       {/* Toggle button */}
@@ -63,23 +66,26 @@ const SideBar = () => {
       {/* Logo */}
       <div className="flex items-center justify-center mt-2">
         <img
-          src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=500"
+          src={SabanaLogo}
           alt="Logo"
-          className="h-10 w-10"
+          className="h-15 w-35"
         />
       </div>
 
       {/* Informasi */}
       {isOpen && (
         <div className="mt-6 border-t border-b border-gray-300 p-3 text-xs space-y-2">
-          <div className="flex justify-between">
-            <span>Saldo</span>
-            <span>Rp100.000</span>
+          <div className="flex font-bold">
+            <span>Ringkasan Harian</span>
           </div>
-          <div className="flex justify-between">
-            <span>Total Transaksi</span>
+          <ul className="flex justify-between list-disc pl-5 text-gray-700">
+            <li>Pendapatan</li>
+            <span>Rp408.000</span>
+          </ul>
+          <ul className="flex justify-between list-disc pl-5 text-gray-700">
+            <li>Total Pesanan</li>
             <span>34</span>
-          </div>
+          </ul>
         </div>
       )}
 

@@ -15,18 +15,18 @@ function Card_Produk_User({ img, id, name, price, stock, product }) {
   };
 
   return (
-    <div className="w-full border border-gray-200 rounded-lg bg-white shadow-md">
+    <div className="w-full rounded-lg bg-white shadow-md">
       <img
         src={img}
         alt={name}
-        className="w-full h-28 object-cover rounded-t-lg"
+        className="w-full h-44 object-cover rounded-xl p-2"
       />
       <div className="px-3 pt-2 pb-2 space-y-2">
         <p className="text-sm font-medium line-clamp-2">{name}</p>
-        <div className="flex justify-between">
-          <p className="text-base font-bold">Rp{price}</p>
+        <div className="flex justify-between items-center">
+          <p className="font-bold">Rp{price.toLocaleString("id-ID")}</p>
           <span
-            className={`text-xs font-semibold px-2 py-1 rounded ${
+            className={`text-xs font-semibold px-2 h-5 rounded ${
               stock > 0 ? "bg-gray-200" : "bg-red-500 text-white"
             }`}
           >

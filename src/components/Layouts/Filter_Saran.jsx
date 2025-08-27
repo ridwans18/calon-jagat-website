@@ -2,9 +2,9 @@ import Dropdown from "../Fragments/Dropdown";
 import SearchBar from "../Fragments/SearchBar";
 import ResetFilter from "../Fragments/ResetFilter";
 
-function FilterSearchReset() {
+function FilterSaran() {
   return (
-    <div className="mt-6 bg-gray-100 border border-gray-200 rounded-md shadow-sm overflow-hidden p-4 ">
+    <div className="bg-gray-100 border border-gray-200 rounded-md shadow-sm overflow-hidden p-4 ">
       {/* Filter & Search Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
         {/* Kiri: Dropdown + Checkbox */}
@@ -14,16 +14,8 @@ function FilterSearchReset() {
           <option>Paling Lama</option>
         </Dropdown>
 
-        <div className="w-full">
-          <button
-            className="text-sm text-gray-700 px-5 h-10 rounded-md border border-gray-200 hover:bg-green-100 bg-white">
-              Cetak
-          </button>
-        </div>
-
         {/* Kanan: Search + Reset */}
         <div className="flex items-center gap-4">
-          <SearchBar />
           <ResetFilter />
         </div>
       </div>
@@ -31,4 +23,4 @@ function FilterSearchReset() {
   );
 }
 
-export default FilterSearchReset;
+export default FilterSaran;

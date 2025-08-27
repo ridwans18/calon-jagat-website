@@ -48,7 +48,7 @@ const Login_Layout = () => {
                 type="password"
                 name="password"
                 id="password"
-                placeholder="password"
+                placeholder="*********"
                 value={formData.password}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
@@ -57,7 +57,7 @@ const Login_Layout = () => {
             </div>
 
             {error && <p className="text-red-500 text-sm mb-3">Login gagal: {error.message}</p>}
-            {data && <p className="text-green-600 text-sm mb-3">Login berhasil!</p>}
+            {/* {data && <p className="text-green-600 text-sm mb-3">Login berhasil!</p>} */}
 
             <div className="flex flex-col items-center">
             <button
@@ -78,9 +78,6 @@ const Login_Layout = () => {
                 </>
                 )}
             </button>
-            <a href="#" className="text-sm text-gray-600 mt-3 hover:underline">
-                <strong>Lupa password?</strong>
-            </a>
             </div>
         </form>
     </div>

@@ -105,17 +105,17 @@ const PaymentMethod = () => {
       {/* Form */}
       <div className="min-h-screen p-4 pt-18 pb-28 bg-white shadow-md max-w-md mx-auto">
         <div className="border border-green-200 bg-green-50 rounded-lg px-4 py-1 mb-4 flex justify-between items-center">
-          <span className="text-xs text-gray-500">Order Type</span>
+          <span className="text-xs text-gray-500 font-bold">Tipe Pemesanan</span>
           <div className="font-bold text-xs flex items-center">
-            Pick Up
+            Ambil Sendiri
             <CheckCircleIcon className="ml-2 w-5 h-5 text-green-500" />
           </div>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-3">
           <h2 className="font-bold mb-2">Informasi Pelanggan</h2>
           {/* Nama Pelanggan */}
-          <label className="block text-sm font-medium mb-1">
+          <label className="block text-sm mb-1">
             Nama Lengkap<span className="text-red-500">*</span>
           </label>
           <input
@@ -127,7 +127,7 @@ const PaymentMethod = () => {
             className="w-full border-2 border-gray-300 px-3 py-2 rounded-lg mb-3"
           />
           {/* Nomor Pelanggan */}
-          <label className="block text-sm font-medium mb-1">
+          <label className="block text-sm mb-1">
             No. Handphone<span className="text-red-500">*</span>
           </label>
           <input
@@ -139,8 +139,8 @@ const PaymentMethod = () => {
             className="w-full border-2 border-gray-300 px-3 py-2 rounded-lg mb-3"
           />
           {/* Email Pelanggan */}
-          <label className="block text-sm font-medium mb-1">
-            Kirim Tanda Terima ke Email
+          <label className="block text-sm mb-1">
+            Kirim tanda terima ke Email
           </label>
           <input
             type="email"
@@ -153,28 +153,18 @@ const PaymentMethod = () => {
         </div>
 
         {/* Payment Method */}
-        <div className="mb-4">
+        <div>
           <h2 className="font-bold mb-2">Metode Pembayaran</h2>
           <div className="flex gap-2">
             <button
               className={`flex-1 px-3 py-2 rounded-lg border ${
                 paymentMethod === "Online Payment"
                   ? "border-green-400 bg-green-50"
-                  : "border-gray-300"
+                  : "border-gray-300 font"
               }`}
               onClick={() => setPaymentMethod("Online Payment")}
             >
-              Online
-            </button>
-            <button
-              className={`flex-1 px-3 py-2 rounded-lg border ${
-                paymentMethod === "Pay at Cashier"
-                  ? "border-green-400 bg-green-50"
-                  : "border-gray-300"
-              }`}
-              onClick={() => setPaymentMethod("Pay at Cashier")}
-            >
-              Ditempat
+              <span className="font-bold">QRIS</span>
             </button>
           </div>
         </div>

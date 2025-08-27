@@ -73,7 +73,7 @@ function Card_Produk({ changepage }) {
         products.data.map((item, index) => (
           <div
             key={index}
-            className="flex gap-4 items-start p-4 border rounded-lg shadow-sm bg-white"
+            className="flex gap-4 items-start p-4 border border-gray-300 rounded-lg shadow-sm bg-white"
           >
             {/* Gambar dan Nama Produk */}
             <div className="min-w-[323px] flex gap-2">
@@ -96,7 +96,7 @@ function Card_Produk({ changepage }) {
                 </div>
                 <input
                   type="text"
-                  value={item.harga}
+                  value={item.harga.toLocaleString("id-ID")}
                   className="w-full outline-none"
                   readOnly
                 />
@@ -109,9 +109,9 @@ function Card_Produk({ changepage }) {
             </div>
 
             {/* Deskripsi */}
-            <div className="min-w-[150px] w-full">
+            {/* <div className="min-w-[150px] w-full">
               <p>{item.deskripsi}</p>
-            </div>
+            </div> */}
 
             {/* Status */}
             <div className="min-w-[150px] w-full">

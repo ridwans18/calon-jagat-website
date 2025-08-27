@@ -201,74 +201,76 @@ function ContentKasir() {
       </div>
 
       <div className="flex flex-col h-160">
-        {/* Pesanan Online */}
-        <div className="w-full px-4 overflow-y-auto mb-5">
-          <h2 className="sticky top-0 text-xl font-semibold bg-white w-full h-9 z-10 text-green-600">
-            Pesanan Online
-          </h2>
+{/* Pesanan Online */}
+<div className="w-full px-4 mb-5">
+  <h2 className="sticky top-0 text-xl font-semibold bg-white w-full h-9 z-10 text-green-600">
+    Pesanan Online
+  </h2>
 
-          <div className="grid grid-cols-2 gap-4 mt-2 text-xs">
-            {orders.data &&
-              orders.data.map((product, index) => (
+  <div className="grid grid-cols-2 gap-4 mt-2 text-xs">
+    {orders.data &&
+      orders.data.map((product, index) => (
+        <div
+          key={product.id_orders}
+          className="flex w-53 h-29 rounded-lg overflow-hidden shadow border border-gray-200"
+        >
+          {/* KIRI: Data Produk */}
+          <div className="flex flex-col items-center flex-1 bg-green-100 overflow-y-auto hide-scrollbar">
+            {/* Nama Pelanggan */}
+            <div className="sticky top-0 flex w-full bg-gray-500 text-white font-bold p-2">
+              <span>{product.nama_pelanggan}</span>
+            </div>
+
+            {/* List Produk */}
+            <div className="flex flex-col gap-1.5 p-2 w-full">
+              {product.produk.map((item, idx) => (
                 <div
-                  key={product.id_orders}
-                  className="flex w-53 h-23 rounded-lg overflow-hidden shadow border border-gray-200"
+                  key={idx}
+                  className="flex justify-between w-full font-semibold"
                 >
-                  <div className="flex flex-col items-center flex-1 bg-green-100 overflow-y-auto hide-scrollbar">
-                    {/* Nama Pelanggan */}
-                    <div className="sticky top-0 flex w-full bg-gray-500 text-white font-bold p-2">
-                      <span>{product.nama_pelanggan}</span>
-                    </div>
-
-                    {/* List Produk */}
-                    <div className="flex flex-col gap-1.5 p-2 w-full">
-                      {product.produk.map((item, index) => (
-                        <div
-                          key={index}
-                          className="flex justify-between w-full text-xs font-semibold"
-                        >
-                          <span>{item.nama_produk}</span>
-                          <span>{item.quantity}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* KANAN: Kotak atas (nomor) dan bawah ("Proses?") */}
-                  <div className="flex flex-col w-15">
-                    {/* Jam pesanan */}
-                    <div className="flex items-center justify-center bg-gray-500 h-8 text-white font-bold">
-                      13.46
-                    </div>
-
-                    {/* Nomor urut */}
-                    <div className="flex items-center justify-center bg-orange-400 flex-1 text-white font-bold">
-                      {index + 1}
-                    </div>
-
-                    {/* Tombol aksi */}
-                    {product.proses === 0 ? (
-                      <button
-                        onClick={() => handleProcess(product.id_orders)}
-                        className="flex items-center justify-center bg-blue-500 hover:bg-blue-600 flex-1 text-white text-xs
-                                       active:bg-blue-700 transition duration-200 cursor-pointer"
-                      >
-                        Proses?
-                      </button>
-                    ) : (
-                      <button
-                        onClick={() => handleDone(product)}
-                        className="flex items-center justify-center bg-green-500 hover:bg-green-600 flex-1 text-white text-xs
-                                       active:bg-green-700 transition duration-200 cursor-pointer"
-                      >
-                        Selesai?
-                      </button>
-                    )}
-                  </div>
+                  <span>{item.nama_produk}</span>
+                  <span>{item.quantity}</span>
                 </div>
               ))}
+            </div>
+          </div>
+
+          {/* KANAN: Jam, Nomor, dan Tombol */}
+          <div className="flex flex-col w-15">
+            {/* Jam pesanan */}
+            <div className="flex items-center justify-center bg-gray-500 h-8 text-white font-bold">
+              {product.jam_order} 
+            </div>
+
+            {/* Nomor urut */}
+            <div className="flex items-center justify-center bg-orange-400 flex-1 text-white font-bold">
+              {index + 1}
+            </div>
+
+            {/* Tombol aksi */}
+            {product.proses === 0 ? (
+              <button
+                onClick={() => handleProcess(product.id_orders)}
+                className="flex items-center justify-center bg-blue-500 hover:bg-blue-600 flex-1 text-white text-xs
+                           active:bg-blue-700 transition duration-200 cursor-pointer"
+              >
+                Proses?
+              </button>
+            ) : (
+              <button
+                onClick={() => handleDone(product)}
+                className="flex items-center justify-center bg-green-500 hover:bg-green-600 flex-1 text-white text-xs
+                           active:bg-green-700 transition duration-200 cursor-pointer"
+              >
+                Selesai?
+              </button>
+            )}
           </div>
         </div>
+      ))}
+  </div>
+</div>
+
       </div>
     </div>
   );

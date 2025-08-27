@@ -31,7 +31,7 @@ export default function TopSeller() {
         <BarChart
           layout="vertical"
           data={report_product}
-          margin={{ top: 0, right: 10, left: 0, bottom: 30 }}
+          margin={{ top: 0, right: 10, left: 7, bottom: 30 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis type="number" tickLine={false} axisLine={false} />
