@@ -1,5 +1,9 @@
 import React from "react";
 import { useSearchParams } from "react-router-dom";
+import GarisPembatas from "../components/Fragments/Garis Pembatas";
+import HeaderDate_OrderStatus from "../components/Layouts/HeaderDate_OrderStatus";
+import Lokasi_OrderStatus from "../components/Layouts/Lokasi_OrderStatus";
+import DataPesanan_OrderStatus from "../components/Layouts/DataPesanan_OrderStatus";
 
 function OrderStatus() {
   const [searchParams] = useSearchParams();
@@ -7,49 +11,29 @@ function OrderStatus() {
   const orderid = searchParams.get("orderid");
   return (
     <div className=" h-screen bg-white shadow-md relative flex justify-center ">
-      <div className="w-full xl:w-xl shadow-md p-2 space-y-2">
-        <div className="text-center">
-          <h1>Ringkasan Pesanan</h1>
-        </div>
-        <div className=" flex justify-between">
-          <h1>Order Type</h1>
-          <h1>Pick Up</h1>
-        </div>
-        <div className=" flex justify-between">
-          <div>
-            <h1>Date</h1>
-            <h1>29/xx/xx</h1>
+      <div className="w-full xl:w-115 shadow-md p-4 space-y-2">
+        {/* Header, Pick Up & Date */}
+        <HeaderDate_OrderStatus />
+
+        {/* Nama & Lokasi */}
+        <Lokasi_OrderStatus />
+
+        <GarisPembatas />
+
+        {/* Informasi Pesanan & Subtotal */}
+        <DataPesanan_OrderStatus />
+
+        <GarisPembatas />
+        
+        <div className="flex justify-center bottom-0 z-40">
+          <div className="max-w-md bg-transparent p-3">
+            <button
+              className="bg-green-600 text-white font-semibold px-7 py-3 rounded-md shadow-md 
+                        hover:bg-green-500 active:bg-green-700 transition duration-200"
+            >
+              <span className="text-sm p-4">Pesanan Baru</span>
+            </button>
           </div>
-          <div>
-            <h1>Order Number</h1>
-            <h1 className="text-end">adfafafa1231</h1>
-          </div>
-        </div>
-        <div>
-          <h1>Informasi Pesanan</h1>
-          <h2>Nama Pelanggan: xxxx</h2>
-          <h2>Nomor Telepon: xxxxx</h2>
-        </div>
-        <div>
-          <h1 className="font-bold">Pesanan</h1>
-          <div>
-            <p>1x xxxx</p>
-          </div>
-        </div>
-        <div>
-          <div className="flex justify-between">
-            <h2>Subtotal</h2> <p>Rp. xxx</p>
-          </div>
-          <div className="flex justify-between">
-            <h2>Fee</h2> <p>Rp. xxx</p>
-          </div>
-          <div className="flex justify-between">
-            <h2>Pembayaran</h2> <p className="font-bold">QRIS</p>
-          </div>
-        </div>
-        <div className="flex justify-between">
-          <p>Total</p>
-          <p>Rp. xxx</p>
         </div>
       </div>
     </div>
