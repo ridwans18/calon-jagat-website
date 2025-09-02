@@ -77,14 +77,11 @@ function Card_Produk({ changepage }) {
           >
             {/* Gambar dan Nama Produk */}
             <div className="min-w-[323px] flex gap-2">
-              {item.images?.map((src, i) => (
-                <img
-                  key={i}
-                  src={src}
-                  alt={`produk-${i}`}
-                  className="w-20 h-20 object-cover border rounded"
-                />
-              ))}
+              <img
+                src={item.img}
+                className="w-20 h-20 object-cover border border-gray-300 rounded mr-1"
+                alt=""
+              />
               <p>{item.nama_produk}</p>
             </div>
 
