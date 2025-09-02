@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import SabanaLogo from "../../assets/sabana-logo.png"; 
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import SabanaLogo from "../../assets/sabana-logo.png";
 import {
   UserIcon,
   HomeIcon,
@@ -8,26 +8,28 @@ import {
   CubeIcon,
   ClipboardDocumentCheckIcon,
   ChatBubbleLeftRightIcon,
-  Cog6ToothIcon,  
+  Cog6ToothIcon,
   ArrowRightOnRectangleIcon,
   Bars3Icon,
   XMarkIcon,
   BanknotesIcon,
   ShoppingCartIcon,
-} from '@heroicons/react/24/outline';
+} from "@heroicons/react/24/outline";
+import { removeFromLocalStorage } from "../../services/localstorage";
+import { postlogout } from "../../services/api";
 
 const navItems = [
   // { name: 'User Beranda', icon: UserIcon, path: '/UserBeranda' },
-  { name: 'Dashboard', icon: HomeIcon, path: '/' },
-  { name: 'Kasir', icon: CreditCardIcon, path: '/Kasir' },
-  { name: 'Produk', icon: CubeIcon, path: '/Produk' },
-  { name: 'Transaksi', icon: ClipboardDocumentCheckIcon, path: '/Transaksi' },
-  { name: 'Saran', icon: ChatBubbleLeftRightIcon, path: '/Saran' },
+  { name: "Dashboard", icon: HomeIcon, path: "/" },
+  { name: "Kasir", icon: CreditCardIcon, path: "/Kasir" },
+  { name: "Produk", icon: CubeIcon, path: "/Produk" },
+  { name: "Transaksi", icon: ClipboardDocumentCheckIcon, path: "/Transaksi" },
+  { name: "Saran", icon: ChatBubbleLeftRightIcon, path: "/Saran" },
 ];
 
 const pengaturanItem = [
-  { nameBott: 'Pengaturan', icon: Cog6ToothIcon, path: '/Pengaturan' },
-  { nameBott: 'Keluar', icon: ArrowRightOnRectangleIcon, path: '/Login' },
+  { nameBott: "Pengaturan", icon: Cog6ToothIcon, path: "/Pengaturan" },
+  { nameBott: "Keluar", icon: ArrowRightOnRectangleIcon, path: "/Login" },
 ];
 
 const SideBar = () => {
@@ -35,19 +37,34 @@ const SideBar = () => {
 
   // Ambil nilai awal dari localStorage (true/false)
   const [isOpen, setIsOpen] = useState(() => {
-    const saved = localStorage.getItem('sidebarOpen');
+    const saved = localStorage.getItem("sidebarOpen");
     return saved === null ? true : JSON.parse(saved);
   });
 
+  const handlelogout = async (name) => {
+    console.log(name);
+    if (name === "Keluar") {
+      console.log(1);
+      const response = await postlogout(
+        "user_admin/logout",
+        {},
+        { withCredentials: true }
+      );
+      console.log(response);
+      if (response.clearLocal) removeFromLocalStorage("token");
+      if (response.success) window.location.href = "/Login";
+    }
+  };
+
   // Simpan setiap perubahan ke localStorage
   useEffect(() => {
-    localStorage.setItem('sidebarOpen', JSON.stringify(isOpen));
+    localStorage.setItem("sidebarOpen", JSON.stringify(isOpen));
   }, [isOpen]);
 
   return (
     <aside
       className={`${
-        isOpen ? 'w-56' : 'w-20'
+        isOpen ? "w-56" : "w-20"
       } min-h-screen bg-gray-100 border-r border-gray-200 rounded-r-4xl font-semibold shadow-md p-2 
         flex flex-col justify-between transition-all duration-300 overflow-hidden`}
     >
@@ -65,11 +82,7 @@ const SideBar = () => {
 
       {/* Logo */}
       <div className="flex items-center justify-center mt-2">
-        <img
-          src={SabanaLogo}
-          alt="Logo"
-          className="h-15 w-35"
-        />
+        <img src={SabanaLogo} alt="Logo" className="h-15 w-35" />
       </div>
 
       {/* Informasi */}
@@ -97,14 +110,11 @@ const SideBar = () => {
             key={item.name}
             className={`flex items-center px-3 py-2 rounded-md hover:bg-green-200 ${
               location.pathname === item.path
-                ? 'text-green-600 border-l-4 border-green-600'
-                : 'text-gray-800'
+                ? "text-green-600 border-l-4 border-green-600"
+                : "text-gray-800"
             }`}
           >
-            <item.icon className={`${ 
-              isOpen ? 'mr-3' : 'ml-2'
-              } h-5 w-5`} 
-            />
+            <item.icon className={`${isOpen ? "mr-3" : "ml-2"} h-5 w-5`} />
             {isOpen && <span>{item.name}</span>}
           </Link>
         ))}
@@ -116,16 +126,14 @@ const SideBar = () => {
           <Link
             to={itemBott.path}
             key={itemBott.nameBott}
+            onClick={() => handlelogout(itemBott.nameBott)}
             className={`flex items-center px-3 py-2 rounded-md hover:bg-green-200 ${
               location.pathname === itemBott.path
-                ? 'text-green-600 border-l-4 border-green-600'
-                : 'text-gray-800'
+                ? "text-green-600 border-l-4 border-green-600"
+                : "text-gray-800"
             }`}
           >
-            <itemBott.icon className={`${ 
-              isOpen ? 'mr-3' : 'ml-2'
-              } h-5 w-5`} 
-            />
+            <itemBott.icon className={`${isOpen ? "mr-3" : "ml-2"} h-5 w-5`} />
             {isOpen && <span>{itemBott.nameBott}</span>}
           </Link>
         ))}
