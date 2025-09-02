@@ -56,7 +56,7 @@ export const deletedata = async (url, id) => {
 
 export const updatedata = async (url, id, isidata) => {
   try {
-    const response = await axios.put(
+    const response = await axios.patch(
       `${import.meta.env.VITE_API_baseurl}${url}/${id}`,
       isidata
     );
