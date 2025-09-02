@@ -39,7 +39,6 @@ function ContentKasir() {
   };
 
   const handlebayar = async () => {
-    console.log(1);
     try {
       const response = await postdata("payment", {
         amount: Total,
@@ -162,7 +161,8 @@ function ContentKasir() {
                   <div className="flex flex-col w-15">
                     {/* Jam pesanan */}
                     <div className="flex items-center justify-center bg-gray-500 h-8 text-white font-bold">
-                      13.46
+                      {new Date(product.tanggal_pembelian).getHours()}:
+                      {new Date(product.tanggal_pembelian).getMinutes()}
                     </div>
 
                     {/* Nomor urut */}
@@ -171,22 +171,14 @@ function ContentKasir() {
                     </div>
 
                     {/* Tombol aksi */}
-                    {product.proses === 0 ? (
-                      <button
-                        onClick={() => handleDone(product.id_orders)}
-                        className="flex items-center justify-center bg-blue-500 hover:bg-blue-600 flex-1 text-white text-xs
+
+                    <button
+                      onClick={() => handleDone(product.id_orders)}
+                      className="flex items-center justify-center bg-blue-500 hover:bg-blue-600 flex-1 text-white text-xs
                                        active:bg-blue-700 transition duration-200 cursor-pointer"
-                      >
-                        Proses?
-                      </button>
-                    ) : (
-                      <button
-                        className="flex items-center justify-center bg-green-500 hover:bg-green-600 flex-1 text-white text-xs
-                                       active:bg-green-700 transition duration-200 cursor-pointer"
-                      >
-                        Selesai?
-                      </button>
-                    )}
+                    >
+                      selesai
+                    </button>
                   </div>
                 </div>
               ))}
