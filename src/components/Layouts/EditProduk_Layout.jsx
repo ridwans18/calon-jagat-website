@@ -11,6 +11,7 @@ function EditProduk_Layout() {
   const navigate = useNavigate();
   const [images, setImages] = useState([]);
   const [imageuploud, setImageuploud] = useState([]);
+  const [changeimg, setchangeimg] = useState(false);
   const [imgform, setimgform] = useState({});
   const [notif, setNotif] = useState("");
 
@@ -26,10 +27,6 @@ function EditProduk_Layout() {
     loading,
     error,
   } = useFetch(() => fetchData(`produk/${id}`));
-  // const { refetch: refetch2 } = useFetch(
-  //   () => postdata("uploud", imgform),
-  //   false
-  // );
 
   useEffect(() => {
     if (products.length === 0) return;
@@ -42,19 +39,7 @@ function EditProduk_Layout() {
     });
     setImages([products.data[0].img]);
   }, [loading]);
-  console.log(products);
-  // useEffect(() => {
-  //   const index = localStorage.getItem("editIndex");
-  //   const data = JSON.parse(localStorage.getItem("produk")) || [];
 
-  //   setProduk(data);
-  //   setFormData(data[index]);
-  // }, [navigate]);
-
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target;
-  //   setFormData((prev) => ({ ...prev, [name]: value }));
-  // };
   const handleImageUpload = (e) => {
     const files = Array.from(e.target.files);
     if (images.length + files.length <= 1) {
@@ -64,6 +49,7 @@ function EditProduk_Layout() {
       ]);
       setImageuploud(e.target.files[0]);
       setFormData({ ...formData, img: e.target.files[0].name });
+      setchangeimg(!changeimg);
     } else {
       alert("Maksimal upload 1 gambar");
     }
@@ -80,13 +66,22 @@ function EditProduk_Layout() {
       "https://homeschoolingbebita.space/assets/",
       ""
     );
-    newformData.append("photo", imageuploud);
-    newformData.append("nama", formData.nama);
-    newformData.append("deskripsi", formData.deskripsi);
-    newformData.append("harga", formData.harga);
-    newformData.append("stock", formData.stock);
-    newformData.append("oldimg", filename);
 
+    if (changeimg) {
+      newformData.append("photo", imageuploud);
+      newformData.append("nama", formData.nama);
+      newformData.append("deskripsi", formData.deskripsi);
+      newformData.append("harga", formData.harga);
+      newformData.append("stock", formData.stock);
+      newformData.append("oldimg", filename);
+    } else {
+      newformData.append("nama", formData.nama);
+      newformData.append("deskripsi", formData.deskripsi);
+      newformData.append("harga", formData.harga);
+      newformData.append("stock", formData.stock);
+      newformData.append("oldimg", filename);
+    }
+    console.log([...newformData.entries()]);
     try {
       const response = await axios.patch(
         `https://homeschoolingbebita.space/produk/${id}`,
@@ -97,9 +92,6 @@ function EditProduk_Layout() {
           },
         }
       );
-      // await refetch();
-
-      console.log(response);
     } catch (error) {
       console.log(error);
     }
