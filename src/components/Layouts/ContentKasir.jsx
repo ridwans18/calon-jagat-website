@@ -7,90 +7,16 @@ import {
 } from "../../services/localstorage";
 import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
-import { fetchData } from "../../services/api";
+import { fetchData, updatedata } from "../../services/api";
 import { postdata } from "../../services/api";
 
 function ContentKasir() {
+  const [id_order, setId_order] = useState(null);
   const { cartItems, updateQty, removeFromCart, addToCart, clearCart } =
     useCart();
 
   const { data, loading, error } = useFetch(() => fetchData("produk"));
-  const { data: orders } = useFetch(() => fetchData("orders"));
-  console.log(orders);
-  // const [productDitinggal, setProductDitinggal] = useState(
-  //   getFromLocalStorage("productDitinggal") || []
-  // );
-  // const [ProductOnline, setProductOnline] = useState([
-  //   {
-  //     orderId: "ORD10001",
-  //     customerName: "Andi Wijaya",
-  //     timestamp: "2025-06-04T08:15:00Z",
-  //     isProses: false,
-  //     isDone: false,
-  //     items: [
-  //       { id: 1, name: "Paha Atas", jumlah: 2 },
-  //       {
-  //         id: 2,
-  //         name: "Paha Bawah",
-  //         jumlah: 3,
-  //       },
-  //       { id: 3, name: "Sayap", jumlah: 1 },
-  //     ],
-  //   },
-  //   {
-  //     orderId: "ORD10002",
-  //     customerName: "Siti Rahma",
-  //     timestamp: "2025-06-04T08:45:00Z",
-  //     isProses: false,
-  //     isDone: false,
-  //     items: [
-  //       { id: 4, name: "Dada", jumlah: 4 },
-  //       {
-  //         id: 2,
-  //         name: "Paha Bawah",
-  //         jumlah: 2,
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     orderId: "ORD10003",
-  //     customerName: "Budi Santoso",
-  //     timestamp: "2025-06-04T09:10:00Z",
-  //     isProses: false,
-  //     isDone: false,
-  //     items: [
-  //       { id: 3, name: "Sayap", jumlah: 2 },
-  //       { id: 5, name: "Sadas", jumlah: 2 },
-  //     ],
-  //   },
-  //   {
-  //     orderId: "ORD10004",
-  //     customerName: "Rina Marlina",
-  //     timestamp: "2025-06-04T09:30:00Z",
-  //     isProses: false,
-  //     isDone: false,
-  //     items: [
-  //       { id: 1, name: "Paha Atas", jumlah: 1 },
-  //       { id: 4, name: "Dada", jumlah: 3 },
-  //     ],
-  //   },
-  //   {
-  //     orderId: "ORD10005",
-  //     customerName: "Joko Priyono",
-  //     timestamp: "2025-06-04T10:00:00Z",
-  //     isProses: false,
-  //     isDone: false,
-  //     items: [
-  //       {
-  //         id: 2,
-  //         name: "Paha Bawah",
-  //         jumlah: 2,
-  //       },
-  //       { id: 3, name: "Sayap", jumlah: 1 },
-  //       { id: 5, name: "Sadas", jumlah: 1 },
-  //     ],
-  //   },
-  // ]);
+  const { data: orders, refetch } = useFetch(() => fetchData("orders/status"));
 
   const [Total, setTotal] = useState(0);
 
@@ -106,12 +32,10 @@ function ContentKasir() {
     addToCart(product);
   };
 
-  const handleProcess = (id) => {
-    setProductOnline(
-      ProductOnline.map((item) =>
-        item.orderId === id ? { ...item, isProses: true } : item
-      )
-    );
+  const handleDone = async (id) => {
+    let hasil = await updatedata("orders", id, { updateselesai: true });
+    console.log(hasil);
+    await refetch();
   };
 
   const handlebayar = async () => {
@@ -249,7 +173,7 @@ function ContentKasir() {
                     {/* Tombol aksi */}
                     {product.proses === 0 ? (
                       <button
-                        onClick={() => handleProcess(product.id_orders)}
+                        onClick={() => handleDone(product.id_orders)}
                         className="flex items-center justify-center bg-blue-500 hover:bg-blue-600 flex-1 text-white text-xs
                                        active:bg-blue-700 transition duration-200 cursor-pointer"
                       >
@@ -257,7 +181,6 @@ function ContentKasir() {
                       </button>
                     ) : (
                       <button
-                        onClick={() => handleDone(product)}
                         className="flex items-center justify-center bg-green-500 hover:bg-green-600 flex-1 text-white text-xs
                                        active:bg-green-700 transition duration-200 cursor-pointer"
                       >
