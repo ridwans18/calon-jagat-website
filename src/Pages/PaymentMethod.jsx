@@ -83,7 +83,7 @@ const PaymentMethod = () => {
       phone: DataPesanan.nomorhp,
       email_pelanggan: DataPesanan.email,
     });
-
+    console.log(response);
     window.snap.pay(response.token);
     removeFromLocalStorage("cartItems");
   };
@@ -105,7 +105,9 @@ const PaymentMethod = () => {
       {/* Form */}
       <div className="min-h-screen p-4 pt-18 pb-28 bg-white shadow-md max-w-md mx-auto">
         <div className="border border-green-200 bg-green-50 rounded-lg px-4 py-1 mb-4 flex justify-between items-center">
-          <span className="text-xs text-gray-500 font-bold">Tipe Pemesanan</span>
+          <span className="text-xs text-gray-500 font-bold">
+            Tipe Pemesanan
+          </span>
           <div className="font-bold text-xs flex items-center">
             Ambil Sendiri
             <CheckCircleIcon className="ml-2 w-5 h-5 text-green-500" />
