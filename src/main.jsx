@@ -19,6 +19,8 @@ import OrderStatus from "./Pages/OrderStatus.jsx";
 import History from "./Pages/History.jsx";
 import Pengaturan from "./Pages/Pengaturan.jsx";
 import UserSaran from "./Pages/UserSaran.jsx";
+import ForgotPassword from "./Pages/ForgotPassword.jsx";
+const istoken = localStorage.getItem("token");
 
 const router = createBrowserRouter([
   {
@@ -27,27 +29,27 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Beranda />,
+    element: istoken ? <Beranda /> : <Login />,
   },
   {
     path: "/Kasir",
-    element: <Kasir />,
+    element: istoken ? <Kasir /> : <Login />,
   },
   {
     path: "/Produk",
-    element: <Produk />,
+    element: istoken ? <Produk /> : <Login />,
   },
   {
     path: "/Transaksi",
-    element: <Transaksi />,
+    element: istoken ? <Transaksi /> : <Login />,
   },
   {
     path: "/Saran",
-    element: <Saran />,
+    element: istoken ? <Saran /> : <Login />,
   },
   {
     path: "/ViewPesanan",
-    element: <ViewPesanan />,
+    element: istoken ? <ViewPesanan /> : <Login />,
   },
   {
     path: "/PaymentMethod",
@@ -55,15 +57,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/TambahProduk",
-    element: <TambahProduk />,
+    element: istoken ? <TambahProduk /> : <Login />,
   },
   {
     path: "/EditProduk/:id",
-    element: <EditProduk />,
+    element: istoken ? <EditProduk /> : <Login />,
   },
   {
     path: "/Login",
-    element: <Login />,
+    element: istoken ? <Beranda /> : <Login />,
   },
   {
     path: "/orderstatus",
@@ -75,11 +77,15 @@ const router = createBrowserRouter([
   },
   {
     path: "/Pengaturan",
-    element: <Pengaturan />,
+    element: istoken ? <Pengaturan /> : <Login />,
   },
   {
     path: "/UserSaran",
     element: <UserSaran />,
+  },
+  {
+    path: "/ForgotPassword",
+    element: istoken ? <Beranda /> : <ForgotPassword />,
   },
 ]);
 createRoot(document.getElementById("root")).render(
