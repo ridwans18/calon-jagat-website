@@ -18,6 +18,7 @@ import Saran from "./Pages/Saran.jsx";
 import OrderStatus from "./Pages/OrderStatus.jsx";
 import History from "./Pages/History.jsx";
 import Pengaturan from "./Pages/Pengaturan.jsx";
+import UserSaran from "./Pages/UserSaran.jsx";
 
 const router = createBrowserRouter([
   {
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
   {
     path: "/Pengaturan",
     element: <Pengaturan />,
+  },
+  {
+    path: "/UserSaran",
+    element: <UserSaran />,
   },
 ]);
 createRoot(document.getElementById("root")).render(
