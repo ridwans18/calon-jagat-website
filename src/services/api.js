@@ -17,13 +17,38 @@ export const postdata = async (url, isidata) => {
     const urlfinal = `${import.meta.env.VITE_API_baseurl}${url}`;
     const response = await axios.post(urlfinal, isidata);
     const data = await response.data;
-    console.log(data);
+
     return data;
   } catch (error) {
     console.log(error);
   }
 };
+export const postlogin = async (url, isidata) => {
+  try {
+    const urlfinal = `${import.meta.env.VITE_API_baseurl}${url}`;
+    const response = await axios.post(urlfinal, isidata, {
+      withCredentials: true,
+    });
+    const data = await response.data;
 
+    return data;
+  } catch (error) {
+    return error.response;
+  }
+};
+export const postlogout = async (url, isidata) => {
+  try {
+    const urlfinal = `${import.meta.env.VITE_API_baseurl}${url}`;
+    const response = await axios.post(urlfinal, isidata, {
+      withCredentials: true,
+    });
+    const data = await response.data;
+
+    return data;
+  } catch (error) {
+    return error.response;
+  }
+};
 export const postimg = async (url, isidata) => {
   try {
     const res = await axios.post(
