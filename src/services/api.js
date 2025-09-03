@@ -20,7 +20,7 @@ export const postdata = async (url, isidata) => {
 
     return data;
   } catch (error) {
-    console.log(error);
+    return error;
   }
 };
 export const postlogin = async (url, isidata) => {
@@ -89,5 +89,31 @@ export const updatedata = async (url, id, isidata) => {
     return data;
   } catch (error) {
     console.log(error);
+  }
+};
+
+export const getexcell = async (endpoint, FormData) => {
+  try {
+    const response = await axios.post(
+      `${import.meta.env.VITE_API_baseurl}${endpoint}/`,
+      FormData,
+      {
+        responseType: "blob", // penting supaya file tidak rusak
+        // withCredentials: true,
+      }
+    );
+    console.log(response);
+
+    // bikin link download manual
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "report.xlsx");
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Gagal download Excel:", error);
   }
 };
