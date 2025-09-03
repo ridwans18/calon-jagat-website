@@ -73,7 +73,11 @@ const Login_Layout = () => {
             className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
             required
           />
-          <button className="text-sm text-gray-700 mt-4 hover:underline">
+          <button
+            className="text-sm text-gray-700 mt-4 hover:underline"
+            type="button"
+            onClick={() => (window.location.href = "/ForgotPassword")}
+          >
             Lupa Password?
           </button>
         </div>

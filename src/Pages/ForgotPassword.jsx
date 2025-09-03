@@ -1,4 +1,56 @@
+import { useEffect, useState } from "react";
+import useFetch from "../hooks/useFetch";
+import { postdata } from "../services/api";
+
 function ForgotPassword() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    token: "",
+  });
+  const [test, settest] = useState("");
+  //   const { data, refatch } = useFetch(
+  //     () => postdata("user_admin/entertokenpassword"),
+  //     formData,
+  //     false
+  //   );
+  const handleChange = (e) => {
+    setFormData((prev) => ({
+      ...prev,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const handletoken = async () => {
+    console.log(2);
+    if (!formData.email) return alert("email wajib diisi");
+    const response = await postdata("user_admin/entertokenpassword", formData);
+
+    if (response.status === 404) return alert("email salah");
+    if (response.success) return alert("token berhasil dikirim");
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    console.log(formData);
+    const response = await postdata(
+      `user_admin/forgetpassword/${formData.token}`,
+      formData
+    );
+    console.log(response);
+    if (response.success) {
+      window.location.href = "/login";
+      console.log("berhasil");
+      return;
+    }
+    if (response.response.status === 404) {
+      alert(response.response.data.message);
+      return;
+    }
+    // console.log(1);
+  };
+  //   console.log(test.status);
+  //   useEffect(() => {}, []);
+
   return (
     <div
       id="layoutAuthentication"
@@ -13,16 +65,19 @@ function ForgotPassword() {
               </h3>
             </div>
             <div className="px-6 py-6">
-              <form>
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <div className="mb-4">
                     <label className="block text-sm text-gray-700 mb-1">
                       Alamat Email
                     </label>
                     <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
                       placeholder="name@example.com"
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                      required
                     />
                   </div>
                   <div className="mb-4">
@@ -30,9 +85,12 @@ function ForgotPassword() {
                       Password Baru
                     </label>
                     <input
+                      type="password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
                       placeholder="*********"
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                      required
                     />
                   </div>
                   <label className="block text-sm text-gray-700 mb-1">
@@ -40,21 +98,22 @@ function ForgotPassword() {
                   </label>
                   <div className="flex justify-between gap-4">
                     <input
+                      type="text"
+                      name="token"
+                      maxLength={6}
+                      value={formData.token}
+                      onChange={handleChange}
                       className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring focus:ring-blue-200"
-                      required
                     />
                     <button
-                      type="submit"
+                      type="button"
                       className="flex items-center justify-center px-4 rounded-md text-white bg-gray-500 hover:bg-gray-700 transition"
-                      onClick={() => alert("Token Telah Dikirim")}
+                      onClick={() => handletoken()}
                     >
                       Token
                     </button>
                   </div>
                 </div>
-
-                <p className="text-red-500 text-sm mb-3">Gagal</p>
-                <p className="text-green-600 text-sm mb-3">Berhasil</p>
 
                 <div className="flex flex-col items-center">
                   <button
