@@ -23,10 +23,10 @@ import ForgotPassword from "./Pages/ForgotPassword.jsx";
 const istoken = localStorage.getItem("token");
 
 const router = createBrowserRouter([
-  {
-    path: "/UserBeranda",
-    element: <UserBeranda />,
-  },
+  // {
+  //   path: "/UserBeranda",
+  //   element: <UserBeranda />,
+  // },
   {
     path: "/",
     element: istoken ? <Beranda /> : <Login />,
@@ -47,18 +47,18 @@ const router = createBrowserRouter([
     path: "/Saran",
     element: istoken ? <Saran /> : <Login />,
   },
-  {
-    path: "/ViewPesanan",
-    element: istoken ? <ViewPesanan /> : <Login />,
-  },
-  {
-    path: "/PaymentMethod",
-    element: <PaymentMethod />,
-  },
-  {
-    path: "/TambahProduk",
-    element: istoken ? <TambahProduk /> : <Login />,
-  },
+  // {
+  //   path: "/ViewPesanan",
+  //   element: <ViewPesanan />,
+  // },
+  // {
+  //   path: "/PaymentMethod",
+  //   element: <PaymentMethod />,
+  // },
+  // {
+  //   path: "/TambahProduk",
+  //   element: istoken ? <TambahProduk /> : <Login />,
+  // },
   {
     path: "/EditProduk/:id",
     element: istoken ? <EditProduk /> : <Login />,
@@ -67,22 +67,22 @@ const router = createBrowserRouter([
     path: "/Login",
     element: istoken ? <Beranda /> : <Login />,
   },
-  {
-    path: "/orderstatus",
-    element: <OrderStatus />,
-  },
-  {
-    path: "/History",
-    element: <History />,
-  },
+  // {
+  //   path: "/orderstatus",
+  //   element: <OrderStatus />,
+  // },
+  // {
+  //   path: "/History",
+  //   element: <History />,
+  // },
   {
     path: "/Pengaturan",
     element: istoken ? <Pengaturan /> : <Login />,
   },
-  {
-    path: "/UserSaran",
-    element: <UserSaran />,
-  },
+  // {
+  //   path: "/UserSaran",
+  //   element: <UserSaran />,
+  // },
   {
     path: "/ForgotPassword",
     element: istoken ? <Beranda /> : <ForgotPassword />,

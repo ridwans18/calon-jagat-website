@@ -51,8 +51,21 @@ const useDataOrders = create((set) => ({
         origindata: response.data.data,
       });
     } catch (error) {
-      console.error(error);
+      set({ loading: false, error: error.message });
     }
+  },
+
+  findOrder: async (id) => {
+    try {
+      set({ loading: true });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_baseurl}orders/${id}`
+      );
+      set({
+        data: response.data,
+        loading: false,
+      });
+    } catch (error) {}
   },
   DateAsc: () => {
     set((state) => ({

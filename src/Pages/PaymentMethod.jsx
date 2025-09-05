@@ -17,6 +17,9 @@ const PaymentMethod = () => {
   const [DataPelanggan, setDataPelanggan] = useState(
     getFromLocalStorage("DataPelanggan") || {}
   );
+  const [Data_Order, setData_Order] = useState(
+    getFromLocalStorage("Data_Order") || []
+  );
   const [isDisabled, setIsDisabled] = useState(false);
 
   const [DataPesanan, setDataPesanan] = useState({
@@ -31,17 +34,6 @@ const PaymentMethod = () => {
       qty: item.qty,
     })),
   });
-  // const { data, loading, error, refetch } = useFetch(
-  //   () =>
-  //     postdata("payment", {
-  //       amount: DataPesanan.totalpembayaran,
-  //       data_pesanan: DataPesanan.produk,
-  //       nama_pelanggan: DataPesanan.namapelanggan,
-  //       phone: DataPesanan.nomorhp,
-  //       email_pelanggan: DataPesanan.email,
-  //     }),
-  //   false
-  // );
 
   const handleChange = (e) => {
     setDataPesanan({
@@ -64,17 +56,22 @@ const PaymentMethod = () => {
   }, []);
 
   const handleSubmit = async () => {
-    if (!DataPesanan.namapelanggan && !DataPesanan.nomorhp) {
-      alert("Nama dan nomor HP wajib diisi!");
+    if (
+      !DataPesanan.namapelanggan ||
+      !DataPesanan.nomorhp ||
+      !DataPesanan.email ||
+      !DataPesanan.produk
+    ) {
+      alert("Nama, nomor hp, email, dan produk harus diisi");
       return;
     }
+
     setIsDisabled(true);
     saveToLocalStorage("DataPelanggan", {
       namapelanggan: DataPesanan.namapelanggan,
       nomorhp: DataPesanan.nomorhp,
       email: DataPesanan.email,
     });
-    console.log(DataPesanan.produk);
 
     const response = await postdata("payment", {
       amount: DataPesanan.totalpembayaran,
@@ -83,10 +80,16 @@ const PaymentMethod = () => {
       phone: DataPesanan.nomorhp,
       email_pelanggan: DataPesanan.email,
     });
-    console.log(response);
+
+    setData_Order([...Data_Order, response.kodeorder]);
+
     window.snap.pay(response.token);
     removeFromLocalStorage("cartItems");
   };
+
+  useEffect(() => {
+    saveToLocalStorage("Data_Order", Data_Order);
+  }, [Data_Order]);
 
   return (
     <div className="min-h-screen bg-white shadow-md relative">
