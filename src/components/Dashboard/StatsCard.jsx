@@ -1,10 +1,28 @@
 import { ArrowUpRight, ArrowDownRight, Users, Package } from "lucide-react";
 import useFetch from "../../hooks/useFetch";
 import { fetchData } from "../../services/api";
+import { useEffect, useState } from "react";
 
 export default function StatsCard() {
   const { data, loading, error } = useFetch(() => fetchData("report/month"));
-  const { total_paid_transaction, total_produk_terjual } = data;
+  const [total_paid, settotal_paid] = useState("");
+  const [total_produk, settotal_produk] = useState("");
+  // const { total_paid_transaction, total_produk_terjual } = data;
+  console.log(data);
+  useEffect(() => {
+    console.log("reduce", data);
+    if (data.success) {
+      settotal_paid(
+        data.data.reduce((acc, item) => acc + Number(item.total_pemasukan), 0)
+      );
+
+      settotal_produk(
+        data.report_product
+          .reduce((acc, item) => acc + Number(item.total_terjual), 0)
+          .toLocaleString("id-ID")
+      );
+    }
+  }, [data]);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
@@ -16,7 +34,7 @@ export default function StatsCard() {
           </div>
           <div>
             <p className="text-sm text-gray-500">Pelanggan</p>
-            <h2 className="text-2xl font-bold">{total_paid_transaction}</h2>
+            <h2 className="text-2xl font-bold">{data.success && total_paid}</h2>
           </div>
         </div>
         <div className="bg-green-100 text-green-600 px-2 py-1 text-sm rounded-full flex items-center">
@@ -34,7 +52,7 @@ export default function StatsCard() {
           <div>
             <p className="text-sm text-gray-500">Produk</p>
             <h2 className="text-2xl font-bold">
-              {total_produk_terjual && total_produk_terjual}
+              {data.success && total_produk}
             </h2>
           </div>
         </div>

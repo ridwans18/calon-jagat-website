@@ -22,7 +22,7 @@ const colors = ["#4f46e5", "#10b981", "#f59e0b", "#ef4444"]; // warna untuk tiap
 
 export default function TopSeller() {
   const { data, loading, error } = useFetch(() => fetchData("report/month"));
-  const { report_product } = data;
+  // const { report_product } = data;
 
   return (
     <div className="bg-white p-4 rounded-2xl shadow-md w-full h-80">
@@ -30,7 +30,7 @@ export default function TopSeller() {
       <ResponsiveContainer width="100%" height="100%">
         <BarChart
           layout="vertical"
-          data={report_product}
+          data={data.success && data.report_product}
           margin={{ top: 0, right: 10, left: 7, bottom: 30 }}
         >
           <CartesianGrid strokeDasharray="3 3" />
@@ -44,8 +44,8 @@ export default function TopSeller() {
           />
           <Tooltip />
           <Bar dataKey="total_terjual" barSize={24} radius={[0, 8, 8, 0]}>
-            {report_product &&
-              report_product.map((entry, index) => (
+            {data.success &&
+              data.report_product.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
                   fill={colors[index % colors.length]}
