@@ -8,9 +8,8 @@ export default function StatsCard() {
   const [total_paid, settotal_paid] = useState("");
   const [total_produk, settotal_produk] = useState("");
   // const { total_paid_transaction, total_produk_terjual } = data;
-  console.log(data);
+
   useEffect(() => {
-    console.log("reduce", data);
     if (data.success) {
       settotal_paid(
         data.data.reduce((acc, item) => acc + Number(item.total_pemasukan), 0)
@@ -34,13 +33,15 @@ export default function StatsCard() {
           </div>
           <div>
             <p className="text-sm text-gray-500">Pelanggan</p>
-            <h2 className="text-2xl font-bold">{data.success && total_paid}</h2>
+            <h2 className="text-2xl font-bold">
+              {data.success && data.total_orders}
+            </h2>
           </div>
         </div>
-        <div className="bg-green-100 text-green-600 px-2 py-1 text-sm rounded-full flex items-center">
+        {/* <div className="bg-green-100 text-green-600 px-2 py-1 text-sm rounded-full flex items-center">
           <ArrowUpRight className="w-4 h-4 mr-1" />
           11.01%
-        </div>
+        </div> */}
       </div>
 
       {/* Orders */}
@@ -56,10 +57,10 @@ export default function StatsCard() {
             </h2>
           </div>
         </div>
-        <div className="bg-red-100 text-red-600 px-2 py-1 text-sm rounded-full flex items-center">
+        {/* <div className="bg-red-100 text-red-600 px-2 py-1 text-sm rounded-full flex items-center">
           <ArrowDownRight className="w-4 h-4 mr-1" />
           9.05%
-        </div>
+        </div> */}
       </div>
     </div>
   );

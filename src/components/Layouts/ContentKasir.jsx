@@ -7,8 +7,9 @@ import {
 } from "../../services/localstorage";
 import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
-import { fetchData, updatedata } from "../../services/api";
+import { fetchData, updatedata, updatedataorders } from "../../services/api";
 import { postdata } from "../../services/api";
+import handlerefreshtoken from "../../hooks/handlerefreshtoken";
 
 function ContentKasir() {
   const [id_order, setId_order] = useState(null);
@@ -33,8 +34,15 @@ function ContentKasir() {
   };
 
   const handleDone = async (id) => {
-    let hasil = await updatedata("orders", id, { updateselesai: true });
-    console.log(hasil);
+    let hasil = await updatedataorders(id, { updateselesai: true });
+
+    if (hasil.status === 403) {
+      const update = await handlerefreshtoken(hasil, () =>
+        updatedataorders("orders", id, { updateselesai: true })
+      );
+
+      if (update.success) await refetch();
+    }
     await refetch();
   };
 
@@ -49,10 +57,12 @@ function ContentKasir() {
         })),
         phone: "0",
         email_pelanggan: "a@a.com",
+        status_pembayaran: "paid",
       });
 
-      console.log(response);
+      if (response.token) alert("berhasil");
       clearCart();
+      await refetch();
     } catch (error) {
       console.log(error);
     }

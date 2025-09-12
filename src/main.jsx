@@ -55,10 +55,10 @@ const router = createBrowserRouter([
   //   path: "/PaymentMethod",
   //   element: <PaymentMethod />,
   // },
-  // {
-  //   path: "/TambahProduk",
-  //   element: istoken ? <TambahProduk /> : <Login />,
-  // },
+  {
+    path: "/TambahProduk",
+    element: istoken ? <TambahProduk /> : <Login />,
+  },
   {
     path: "/EditProduk/:id",
     element: istoken ? <EditProduk /> : <Login />,

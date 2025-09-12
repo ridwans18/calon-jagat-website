@@ -1,5 +1,5 @@
 import { use, useEffect, useState } from "react";
-import useDataOrders from "../../../store";
+import { useDataOrders } from "../../../store";
 import { useShallow } from "zustand/shallow";
 
 const header = ["Semua", "Berhasil", "Dibatalkan"];

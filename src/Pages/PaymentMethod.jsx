@@ -27,7 +27,7 @@ const PaymentMethod = () => {
     namapelanggan: DataPelanggan.namapelanggan,
     nomorhp: DataPelanggan.nomorhp,
     email: DataPelanggan.email,
-    iduser: "2893456", // bisa diganti dinamis
+
     totalpembayaran: 0,
     produk: cartItems.map((item) => ({
       id_produk: item.id_produk,

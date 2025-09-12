@@ -4,7 +4,7 @@ import GarisPembatas from "../components/Fragments/Garis Pembatas";
 import HeaderDate_OrderStatus from "../components/Layouts/HeaderDate_OrderStatus";
 import Lokasi_OrderStatus from "../components/Layouts/Lokasi_OrderStatus";
 import DataPesanan_OrderStatus from "../components/Layouts/DataPesanan_OrderStatus";
-import useDataOrders from "../../store";
+import { useDataOrders } from "../../store";
 import { useNavigate } from "react-router-dom";
 
 function OrderStatus() {
@@ -21,7 +21,7 @@ function OrderStatus() {
   const handleClick = () => {
     navigate("/UserBeranda");
   };
-  console.log(data);
+
   return (
     <div className=" h-screen bg-white shadow-md relative flex justify-center ">
       <div className="w-full xl:w-115 shadow-md p-4 space-y-2">
@@ -40,7 +40,7 @@ function OrderStatus() {
         <DataPesanan_OrderStatus
           name={data.data && data.data.nama_pelanggan}
           produk={data.data && data.data.produk}
-          // nomor={data.data.nomor}
+          nomor={data.data && data.data.nomor_hp}
           subtotal={data.data && data.data.total_pembayaran}
         />
 

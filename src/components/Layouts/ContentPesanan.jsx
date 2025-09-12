@@ -2,7 +2,7 @@ import ProdukContain from "../Fragments/ProdukContain";
 import { fetchData } from "../../services/api";
 import useFetch from "../../hooks/useFetch";
 import { useEffect, useState } from "react";
-import useDataOrders from "../../../store";
+import { useDataOrders } from "../../../store";
 import { useShallow } from "zustand/shallow";
 
 function ContentPesanan() {
@@ -24,7 +24,6 @@ function ContentPesanan() {
     //   setproduk(data);
     // }
   }, [data, filterdata]);
-  console.log(data);
   return (
     <div>
       {loading && <div>Loading...</div>}

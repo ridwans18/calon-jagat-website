@@ -37,9 +37,10 @@ function HeaderDate_OrderStatus({ tanggal, no_order }) {
           <h1>Tanggal</h1>
           <h1>
             {new Date(tanggal).toLocaleDateString("id-ID")}{" "}
-            {new Date(tanggal).getHours() +
-              ":" +
-              new Date(tanggal).getMinutes()}
+            {new Date(tanggal).toLocaleTimeString("id-ID", {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
           </h1>
         </div>
         <div className="flex items-center text-end">

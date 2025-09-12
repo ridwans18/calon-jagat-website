@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { data, useNavigate, useSearchParams } from "react-router-dom";
 import useFetch from "../../hooks/useFetch";
 import { deletedata, fetchData } from "../../services/api";
+import handlerefreshtoken from "../../hooks/handlerefreshtoken";
 
 function Card_Produk({ changepage }) {
   const [searchParams] = useSearchParams();
@@ -15,19 +16,16 @@ function Card_Produk({ changepage }) {
     loading,
     error,
     refetch,
-  } = useFetch(
-    () => fetchData(`produk?page=${searchParams.get("page")}&limit=5`),
-    false
-  );
+  } = useFetch(() => fetchData(`produk`));
 
   // console.log(products.total_page);
 
-  useEffect(() => {
-    // async () => await refetch();
-    const fetcing = async () => await refetch();
-    fetcing();
-    changepage(products.total_page);
-  }, [searchParams]);
+  // useEffect(() => {
+  //   // async () => await refetch();
+  //   const fetcing = async () => await refetch();
+  //   fetcing();
+  //   changepage(products.total_page);
+  // }, [searchParams]);
 
   const handleSave = (index, updatedData) => {
     const newProduk = [...produk];
@@ -37,7 +35,14 @@ function Card_Produk({ changepage }) {
   };
 
   const handleDelete = async (indexToDelete) => {
-    await deletedata("produk", indexToDelete);
+    const response = await deletedata("produk", indexToDelete);
+
+    if (response.status === 403) {
+      const update = await handlerefreshtoken(response, () =>
+        deletedata("produk", indexToDelete)
+      );
+      if (update.success) await refetch();
+    }
     refetch();
   };
 
@@ -120,7 +125,7 @@ function Card_Produk({ changepage }) {
             </div>
 
             {/* Opsi Dropdown */}
-            <div className="min-w-[150px] w-full">
+            <div className="min-w-[75px] w-full">
               {/* Tombol Hapus */}
               <div className="relative">
                 <div

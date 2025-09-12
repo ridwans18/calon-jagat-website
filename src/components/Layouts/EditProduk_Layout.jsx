@@ -2,9 +2,10 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import useFetch from "../../hooks/useFetch";
 import axios from "axios";
-import { fetchData } from "../../services/api";
+import { fetchData, updatedata } from "../../services/api";
 import { use } from "react";
 import Form_Produk from "../Fragments/Form_Produk";
+import handlerefreshtoken from "../../hooks/handlerefreshtoken";
 
 function EditProduk_Layout() {
   const { id } = useParams();
@@ -81,23 +82,26 @@ function EditProduk_Layout() {
       newformData.append("stock", formData.stock);
       newformData.append("oldimg", filename);
     }
-    console.log([...newformData.entries()]);
+
     try {
-      const response = await axios.patch(
-        `https://homeschoolingbebita.space/produk/${id}`,
-        newformData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+      const response = await updatedata("produk", id, newformData);
+      if (response.status === 403) {
+        const update = await handlerefreshtoken(response, () =>
+          updatedata("produk", id, newformData)
+        );
+        if (update.success) {
+          setNotif("✅ Produk berhasil diedit!");
+          alert("Produk berhasil diedit!");
+          setTimeout(() => setNotif(""), 3000);
         }
-      );
+        return;
+      }
+      setNotif("✅ Produk berhasil diedit!");
+      alert("Produk berhasil diedit!");
+      setTimeout(() => setNotif(""), 3000);
     } catch (error) {
       console.log(error);
     }
-
-    setNotif("✅ Produk berhasil diedit!");
-    setTimeout(() => setNotif(""), 3000);
   };
 
   return (

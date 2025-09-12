@@ -57,7 +57,7 @@ function Produk_Layout() {
         <div className="px-left space-y-4">
           <Card_Produk changepage={changepage} />
         </div>
-        <div className="w-full flex justify-end p-4">
+        {/* <div className="w-full flex justify-end p-4">
           <div className="flex h-[40px] w-[190px] items-center gap-2 border border-gray-400 rounded-lg justify-between">
             <button
               onClick={() => handlePageMin()}
@@ -75,7 +75,7 @@ function Produk_Layout() {
               Next
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

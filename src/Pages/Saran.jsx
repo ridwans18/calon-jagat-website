@@ -3,19 +3,23 @@ import SideBar from "../components/Layouts/SideBar";
 import FilterSaran from "../components/Layouts/Filter_Saran";
 import { useEffect, useState } from "react";
 import { fetchData } from "../services/api";
+import { useShallow } from "zustand/shallow";
+import { useSaranStore } from "../../store";
 
 function Saran() {
   const [Saran_Data, setSaran_Data] = useState([]);
-
-  const getsaran = async () => {
-    const response = await fetchData("saran");
-    setSaran_Data(response.data);
-  };
+  const { data, loading, findSaran } = useSaranStore(
+    useShallow((state) => ({
+      data: state.data,
+      loading: state.loading,
+      findSaran: state.findSaran,
+    }))
+  );
 
   useEffect(() => {
-    getsaran();
+    findSaran();
   }, []);
-  console.log(Saran_Data);
+
   return (
     <div className="flex min-h-screen bg-white gap-4">
       <SideBar />
@@ -23,13 +27,15 @@ function Saran() {
         <h2 className="text-xl font-semibold">Saran</h2>
         <FilterSaran />
         <div className="grid gap-4 grid-cols-[repeat(auto-fit,minmax(400px,1fr))]">
-          {Saran_Data.map((item) => (
-            <Card_Saran
-              nama={item.nama}
-              email={item.email}
-              isi_saran={item.deskripsi}
-            />
-          ))}
+          {data &&
+            data.map((item, index) => (
+              <Card_Saran
+                key={index}
+                nama={item.nama}
+                email={item.email}
+                isi_saran={item.deskripsi}
+              />
+            ))}
         </div>
       </div>
     </div>

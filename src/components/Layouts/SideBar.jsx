@@ -16,7 +16,8 @@ import {
   ShoppingCartIcon,
 } from "@heroicons/react/24/outline";
 import { removeFromLocalStorage } from "../../services/localstorage";
-import { postlogout } from "../../services/api";
+import { fetchData, postlogout } from "../../services/api";
+import useFetch from "../../hooks/useFetch";
 
 const navItems = [
   // { name: 'User Beranda', icon: UserIcon, path: '/UserBeranda' },
@@ -34,6 +35,7 @@ const pengaturanItem = [
 
 const SideBar = () => {
   const location = useLocation();
+  const { data } = useFetch(() => fetchData("report/daily"));
 
   // Ambil nilai awal dari localStorage (true/false)
   const [isOpen, setIsOpen] = useState(() => {
@@ -42,15 +44,9 @@ const SideBar = () => {
   });
 
   const handlelogout = async (name) => {
-    console.log(name);
     if (name === "Keluar") {
-      console.log(1);
-      const response = await postlogout(
-        "user_admin/logout",
-        {},
-        { withCredentials: true }
-      );
-      console.log(response);
+      const response = await postlogout("user_admin/logout");
+
       if (response.clearLocal) removeFromLocalStorage("token");
       if (response.success) window.location.href = "/Login";
     }
@@ -93,11 +89,15 @@ const SideBar = () => {
           </div>
           <ul className="flex justify-between list-disc pl-5 text-gray-700">
             <li>Pendapatan</li>
-            <span>Rp408.000</span>
+            <span>
+              Rp
+              {data.data &&
+                Number(data.data.total_pemasukan).toLocaleString("id-ID")}
+            </span>
           </ul>
           <ul className="flex justify-between list-disc pl-5 text-gray-700">
             <li>Total Pesanan</li>
-            <span>34</span>
+            <span>{data.data && data.data.total_orders}</span>
           </ul>
         </div>
       )}

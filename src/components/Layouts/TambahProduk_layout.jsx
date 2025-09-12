@@ -1,10 +1,17 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { postdata } from "../../services/api";
+import {
+  postdata,
+  postdatamultipart,
+  postlogout,
+  refreshtoken,
+} from "../../services/api";
 import Form_Produk from "../Fragments/Form_Produk";
 import useFetch from "../../hooks/useFetch";
 import { PiFireTruckLight } from "react-icons/pi";
 import axios from "axios";
+import { saveToLocalStorage } from "../../services/localstorage";
+import handlerefreshtoken from "../../hooks/handlerefreshtoken";
 
 function TambahProduklay() {
   const [images, setImages] = useState([]);
@@ -90,29 +97,38 @@ function TambahProduklay() {
     newformData.append("stock", formData.stock);
 
     try {
-      const response = await axios.post(
-        "https://homeschoolingbebita.space/produk",
-        newformData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await postdatamultipart("produk", newformData);
       // await refetch();
-      console.log(1);
-      console.log(response);
-    } catch (error) {}
 
-    setFormData({
-      nama: "",
-      deskripsi: "",
-      harga: "",
-      stock: "",
-    });
-    setImages([]);
-    setNotif("✅ Produk berhasil ditambahkan!");
-    setTimeout(() => setNotif(""), 3000);
+      if (!response.succes) {
+        const uploud = await handlerefreshtoken(response, () =>
+          postdatamultipart("produk", newformData)
+        );
+        if (uploud.success) {
+          setFormData({
+            nama: "",
+            deskripsi: "",
+            harga: "",
+            stock: "",
+          });
+          setImages([]);
+          setNotif("✅ Produk berhasil ditambahkan!");
+          setTimeout(() => setNotif(""), 3000);
+        }
+        return;
+      }
+      setFormData({
+        nama: "",
+        deskripsi: "",
+        harga: "",
+        stock: "",
+      });
+      setImages([]);
+      setNotif("✅ Produk berhasil ditambahkan!");
+      setTimeout(() => setNotif(""), 3000);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (

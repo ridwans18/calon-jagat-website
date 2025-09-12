@@ -1,7 +1,7 @@
 import Dropdown from "../Fragments/Dropdown";
 import SearchBar from "../Fragments/SearchBar";
 import ResetFilter from "../Fragments/ResetFilter";
-import useDataOrders from "../../../store";
+import { useDataOrders } from "../../../store";
 import { useShallow } from "zustand/shallow";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -39,7 +39,7 @@ function FilterSearchReset() {
   onchange = (e) => {
     setFormdate({ ...Formdate, [e.target.name]: e.target.value });
   };
-  console.log(Formdate);
+
   const downloadExcel = async () => {
     // await getexcell("report/excell");
     // console.log(1);
@@ -64,7 +64,7 @@ function FilterSearchReset() {
     <div className="mt-6 bg-gray-100 border border-gray-200 rounded-md shadow-sm overflow-hidden p-4 ">
       {/* Filter & Search Section */}
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-        {/* Kiri: Dropdown + Checkbox */}
+        {/* Kiri: Dropdown */}
         <select
           onChange={(e) => {
             if (e.target.value === "asc") {

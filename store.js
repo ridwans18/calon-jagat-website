@@ -2,7 +2,7 @@ import { create } from "zustand";
 import axios from "axios";
 import { data } from "react-router-dom";
 
-const useDataOrders = create((set) => ({
+export const useDataOrders = create((set) => ({
   origindata: [],
   data: [],
   loading: false,
@@ -67,6 +67,7 @@ const useDataOrders = create((set) => ({
       });
     } catch (error) {}
   },
+
   DateAsc: () => {
     set((state) => ({
       data: [...state.data].sort(
@@ -106,4 +107,38 @@ const useDataOrders = create((set) => ({
   },
 }));
 
-export default useDataOrders;
+export const useSaranStore = create((set) => ({
+  origindata: [],
+  data: [],
+  loading: false,
+
+  findSaran: async (id) => {
+    try {
+      set({ loading: true });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_baseurl}saran`
+      );
+      set({
+        data: response.data.data,
+        loading: false,
+        origindata: response.data.data,
+      });
+    } catch (error) {
+      set({ loading: false });
+    }
+  },
+
+  DateAscSaran: () => {
+    set((state) => ({
+      data: [...state.data].sort((a, b) => a.id_saran - b.id_saran),
+    }));
+  },
+
+  DateDescSaran: () => {
+    set((state) => ({
+      data: [...state.data].sort((a, b) => b.id_saran - a.id_saran),
+    }));
+  },
+}));
+
+// export { useDataOrders, useSaranStore };
